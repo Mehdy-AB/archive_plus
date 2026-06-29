@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Audit — Maturité documentaire ARCHIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --dark:   #0c0c0a;
+  --dark2:  #141412;
+  --dark3:  #1c1c19;
+  --dark4:  #242420;
+  --dark5:  #2c2c28;
+  --gold:   #c8901c;
+  --gold2:  #e6b444;
+  --gold3:  #f4d48a;
+  --gold-d: #3d2c0c;
+  --cream:  #f0ebe0;
+  --cream2: #d0c8b8;
+  --muted:  #686660;
+  --muted2: #908880;
+  --white:  #ffffff;
+  --A: #c47a0a; --R: #1848b0; --C: #b81c1c;
+  --H: #187840; --I: #6018c8; --V: #0a7868;
+  --E: #0858a0; --K: #a01878;
+  --r1:#dc2626; --r2:#e07000; --r3:#b89000; --r4:#3a7010; --r5:#0a8858;
+  --radius: 10px;
+}
+
+/* ── LIGHT THEME ─────────────────────────────────── */
+html.light {
+  --dark:   #f4f2ed;
+  --dark2:  #eae7e0;
+  --dark3:  #ffffff;
+  --dark4:  #f0ede6;
+  --dark5:  #ddd9d0;
+  --gold:   #b07010;
+  --gold2:  #8a5800;
+  --gold3:  #6b4200;
+  --gold-d: #fde9c2;
+  --cream:  #1a1814;
+  --cream2: #2e2b25;
+  --muted:  #7a7570;
+  --muted2: #5a5650;
+  --white:  #1a1814;
+  --r1:#dc2626; --r2:#c85a00; --r3:#8a6800; --r4:#186c14; --r5:#0a7848;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body { transition: background .25s, color .25s; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--dark);
+  color: var(--cream2);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+html.light .topnav {
+  border-bottom: 1px solid rgba(180,120,0,0.25);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+html.light .org-input {
+  border-color: #ccc8c0;
+}
+html.light .dfield textarea {
+  border-color: #ccc8c0;
+}
+html.light .global-card::before,
+html.light .radar-section-title::before,
+html.light .rpt-section-title::after { background: var(--gold); }
+html.light .pillar-header:hover { background: var(--dark5); }
+html.light #themeBtn { background: #fff8e8; color: #8a5800; border-color: #e0c060; }
+
+/* ── TOP NAV ─────────────────────────────────────── */
+.topnav {
+  background: var(--dark2);
+  border-bottom: 1px solid rgba(200,144,28,0.2);
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center;
+  padding: 0 2rem; height: 60px; gap: 1.5rem;
+}
+.topnav-logo {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: 20px; color: var(--white); letter-spacing: -.02em;
+  flex-shrink: 0;
+}
+.topnav-logo span { color: var(--gold2); }
+.topnav-sub {
+  font-size: 11px; font-weight: 500; color: var(--muted);
+  letter-spacing: .08em; text-transform: uppercase;
+  border-left: 1px solid var(--dark5); padding-left: 1.5rem;
+  flex-shrink: 0;
+}
+.topnav-actions { margin-left: auto; display: flex; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 6px; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 12px;
+  font-weight: 500; border: none; transition: all .15s;
+}
+.btn-dim  { background: var(--dark4); color: var(--cream2); border: 1px solid var(--dark5); }
+.btn-dim:hover { background: var(--dark5); color: var(--white); border-color: var(--muted); }
+.btn-gold { background: var(--gold); color: var(--white); }
+.btn-gold:hover { background: #b07818; }
+.btn-red  { background: #7f1d1d; color: #fca5a5; }
+.btn-red:hover { background: #991b1b; color: var(--white); }
+
+/* ── HERO / DASHBOARD SECTION ───────────────────── */
+.hero {
+  background: var(--dark2);
+  border-bottom: 1px solid rgba(200,144,28,0.15);
+  padding: 2.5rem 2rem;
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; }
+
+.hero-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Global score card */
+.global-card {
+  background: var(--dark3);
+  border: 1px solid rgba(200,144,28,0.25);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: .5rem;
+  position: relative; overflow: hidden;
+}
+.global-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--gold);
+}
+.global-card-label {
+  font-size: 10px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted2);
+}
+.global-score-row {
+  display: flex; align-items: baseline; gap: 6px;
+}
+.global-score-num {
+  font-family: 'Playfair Display', serif; font-size: 54px;
+  font-weight: 800; line-height: 1; color: var(--gold2);
+}
+.global-score-den { font-size: 20px; color: var(--muted); }
+.global-level { font-size: 17px; font-weight: 600; min-height: 26px; }
+.global-progress {
+  height: 4px; background: var(--dark5);
+  border-radius: 2px; overflow: hidden; margin-top: 4px;
+}
+.global-progress-fill {
+  height: 100%; border-radius: 2px;
+  background: var(--gold); transition: width .5s ease;
+}
+.global-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Pillar mini scores grid */
+.pillars-grid-card {
+  grid-column: span 2;
+  background: var(--dark3);
+  border: 1px solid var(--dark5);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+.pillars-grid-title {
+  font-size: 10px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted2); margin-bottom: 1rem;
+}
+.pillars-mini-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px;
+}
+.pmini {
+  background: var(--dark4); border-radius: 8px;
+  padding: 10px 12px; position: relative; overflow: hidden;
+}
+.pmini::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%; border-radius: 3px 0 0 3px;
+}
+.pmini-letter {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 18px;
+  line-height: 1; margin-bottom: 3px;
+}
+.pmini-name { font-size: 10px; color: var(--muted2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pmini-score { font-size: 15px; font-weight: 600; margin-top: 5px; }
+.pmini-bar { height: 3px; background: var(--dark5); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+.pmini-bar-fill { height: 100%; border-radius: 2px; transition: width .5s; }
+
+/* ── RADAR SECTION ───────────────────────────────── */
+.radar-section {
+  background: var(--dark3);
+  border: 1px solid var(--dark5);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin-top: 1.5rem;
+}
+.radar-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.radar-section-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700;
+  color: var(--white); display: flex; align-items: center; gap: 10px;
+}
+.radar-section-title::before {
+  content: ''; display: block; width: 3px; height: 18px;
+  background: var(--gold); border-radius: 2px;
+}
+.radar-section-sub { font-size: 12px; color: var(--muted2); }
+.radar-container {
+  display: grid; grid-template-columns: 1fr 260px; gap: 2rem; align-items: center;
+}
+.radar-chart-wrap {
+  position: relative; width: 100%; aspect-ratio: 1;
+  max-height: 640px;
+}
+.radar-legend-panel { display: flex; flex-direction: column; gap: 10px; }
+.legend-maturity {
+  background: var(--dark4); border-radius: 8px; padding: 1rem;
+  margin-bottom: .5rem;
+}
+.legend-maturity-title {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted2); margin-bottom: .75rem;
+}
+.leg-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 0; font-size: 12px; color: var(--cream2);
+}
+.leg-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: var(--white); flex-shrink: 0;
+}
+.pillar-scores-list { background: var(--dark4); border-radius: 8px; padding: 1rem; }
+.pillar-scores-title {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted2); margin-bottom: .75rem;
+}
+.psl-row {
+  display: flex; align-items: center; gap: 8px; padding: 4px 0;
+}
+.psl-letter {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 13px;
+  width: 18px; flex-shrink: 0;
+}
+.psl-bar { flex: 1; height: 6px; background: var(--dark5); border-radius: 3px; overflow: hidden; }
+.psl-bar-fill { height: 100%; border-radius: 3px; transition: width .5s ease; }
+.psl-val { font-size: 11px; font-weight: 600; width: 28px; text-align: right; flex-shrink: 0; }
+
+/* ── AUDIT SECTION ────────────────────────────────── */
+.audit-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Pillar card */
+.pillar-card {
+  background: var(--dark3);
+  border: 1px solid var(--dark5);
+  border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 1.25rem;
+}
+.pillar-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 20px; cursor: pointer;
+  user-select: none; transition: background .15s;
+  position: relative; overflow: hidden;
+}
+.pillar-header::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.pillar-header:hover { background: var(--dark4); }
+.pillar-letter-badge {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 18px;
+  color: var(--white); flex-shrink: 0;
+}
+.pillar-title-group { flex: 1; min-width: 0; }
+.pillar-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
+  color: var(--white);
+}
+.pillar-sub { font-size: 11px; color: var(--muted2); margin-top: 1px; }
+.pillar-badge {
+  padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  background: var(--dark5); color: var(--muted2); transition: all .3s;
+  white-space: nowrap;
+}
+.pillar-chevron { color: var(--muted); font-size: 11px; transition: transform .25s; }
+.pillar-card.open .pillar-chevron { transform: rotate(180deg); }
+.pillar-body { display: none; }
+.pillar-card.open .pillar-body { display: block; }
+.criteria-header {
+  display: grid; grid-template-columns: 30px 1fr 210px 110px;
+  gap: 12px; padding: 8px 20px;
+  background: var(--dark4);
+  border-top: 1px solid var(--dark5);
+  border-bottom: 1px solid var(--dark5);
+}
+.criteria-header span {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted);
+}
+
+/* Criterion row */
+.criterion {
+  border-bottom: 1px solid var(--dark5);
+  padding: 16px 20px; transition: background .15s;
+}
+.criterion:last-of-type { border-bottom: none; }
+.criterion:hover { background: rgba(255,255,255,0.015); }
+
+.crit-main {
+  display: grid; grid-template-columns: 30px 1fr auto auto;
+  gap: 12px; align-items: start; margin-bottom: 12px;
+}
+.crit-num { font-size: 11px; color: var(--muted); font-weight: 500; padding-top: 2px; }
+.crit-text { font-size: 13px; color: var(--cream2); line-height: 1.55; }
+
+/* Toggle applicable */
+.toggle-wrap { display: flex; align-items: center; gap: 6px; padding-top: 2px; }
+.toggle-wrap label { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.toggle { position: relative; width: 34px; height: 18px; cursor: pointer; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0; background: var(--dark5);
+  border-radius: 9px; transition: background .2s;
+}
+.toggle input:checked ~ .toggle-track { background: var(--H); }
+.toggle-knob {
+  position: absolute; top: 3px; left: 3px;
+  width: 12px; height: 12px; background: var(--white);
+  border-radius: 50%; transition: transform .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.toggle input:checked ~ .toggle-knob { transform: translateX(16px); }
+
+/* Rating */
+.rating-row {
+  display: flex; gap: 5px; padding-left: 42px; margin-bottom: 12px;
+}
+.ropt { position: relative; }
+.ropt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ropt label {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 50px; padding: 8px 5px; border-radius: 8px;
+  border: 1.5px solid var(--dark5);
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  color: var(--muted); background: var(--dark4);
+  transition: all .15s;
+}
+.ropt label .rn { font-size: 17px; font-weight: 700; line-height: 1; }
+.ropt label .rl { font-size: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; text-align: center; line-height: 1.2; }
+.ropt label:hover { border-color: var(--muted2); color: var(--cream); background: var(--dark5); }
+.ropt.r1 input:checked ~ label { background: var(--r1); border-color: var(--r1); color: var(--white); }
+.ropt.r2 input:checked ~ label { background: var(--r2); border-color: var(--r2); color: var(--white); }
+.ropt.r3 input:checked ~ label { background: var(--r3); border-color: var(--r3); color: var(--white); }
+.ropt.r4 input:checked ~ label { background: var(--r4); border-color: var(--r4); color: var(--white); }
+.ropt.r5 input:checked ~ label { background: var(--r5); border-color: var(--r5); color: var(--white); }
+.crit-na { opacity: .35; pointer-events: none; }
+
+/* Detail fields */
+.detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; padding-left: 42px; margin-bottom: 10px;
+}
+.dfield label {
+  display: block; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted2); margin-bottom: 4px;
+}
+.dfield label em { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--muted); font-style: normal; }
+.dfield textarea {
+  width: 100%; min-height: 62px; resize: vertical;
+  background: var(--dark4); border: 1.5px solid var(--dark5);
+  border-radius: 6px; padding: 8px 10px; color: var(--cream2);
+  font-family: 'Inter', sans-serif; font-size: 12px; line-height: 1.5;
+  transition: border-color .15s, background .15s;
+}
+.dfield textarea:focus { outline: none; border-color: var(--gold-d); background: var(--dark3); }
+.dfield textarea::placeholder { color: var(--muted); }
+
+/* Priority */
+.prio-row {
+  display: flex; align-items: center; gap: 8px;
+  padding-left: 42px;
+}
+.prio-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.prio-opts { display: flex; gap: 5px; }
+.popt { position: relative; }
+.popt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.popt label {
+  display: block; padding: 3px 10px; border-radius: 20px; cursor: pointer;
+  font-size: 10px; font-weight: 600;
+  border: 1px solid var(--dark5); color: var(--muted);
+  transition: all .15s;
+}
+.popt label:hover { border-color: var(--muted2); color: var(--cream2); }
+.popt.ph input:checked ~ label { background: rgba(220,38,38,.15); color: #fca5a5; border-color: rgba(220,38,38,.4); }
+.popt.pm input:checked ~ label { background: rgba(224,112,0,.15); color: #fcd34d; border-color: rgba(224,112,0,.4); }
+.popt.pl input:checked ~ label { background: rgba(58,112,16,.15); color: #86efac; border-color: rgba(58,112,16,.4); }
+
+/* Pillar footer */
+.pillar-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--dark4);
+  border-top: 1px solid var(--dark5);
+}
+.pf-label { font-size: 11px; color: var(--muted); }
+.pf-right { display: flex; align-items: center; gap: 8px; }
+.pf-score { font-size: 16px; font-weight: 700; color: var(--cream); }
+.pf-level { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+
+/* ── ORGANISM INPUT ──────────────────────────────── */
+.org-input-wrap {
+  display: flex; align-items: center; gap: 8px;
+  border-left: 1px solid var(--dark5); padding-left: 1.5rem;
+}
+.org-input-wrap label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); white-space: nowrap;
+}
+.org-input {
+  background: var(--dark4); border: 1.5px solid var(--dark5);
+  border-radius: 6px; padding: 5px 10px;
+  color: var(--cream2); font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500; width: 220px;
+  transition: border-color .15s, background .15s;
+}
+.org-input:focus { outline: none; border-color: var(--gold-d); background: var(--dark3); }
+.org-input::placeholder { color: var(--muted); font-style: italic; }
+
+/* ── LOG PANEL ────────────────────────────────────── */
+.log-panel {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+  z-index: 200; align-items: flex-end; justify-content: flex-end;
+}
+.log-panel.open { display: flex; }
+.log-box {
+  background: var(--dark3); border: 1px solid var(--dark5);
+  border-radius: var(--radius) 0 0 0;
+  width: 480px; height: 70vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.log-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--dark4);
+  border-bottom: 1px solid var(--dark5);
+}
+.log-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  font-weight: 700; color: var(--white);
+  display: flex; align-items: center; gap: 8px;
+}
+.log-title::before {
+  content: ''; display: block; width: 3px; height: 16px;
+  background: var(--gold); border-radius: 2px;
+}
+.log-actions { display: flex; gap: 6px; }
+.log-body {
+  flex: 1; overflow-y: auto; padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.log-body::-webkit-scrollbar { width: 4px; }
+.log-body::-webkit-scrollbar-track { background: var(--dark4); }
+.log-body::-webkit-scrollbar-thumb { background: var(--dark5); border-radius: 2px; }
+.log-entry {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 6px 8px; border-radius: 6px;
+  font-size: 11px; line-height: 1.45;
+  border-left: 3px solid transparent;
+  background: rgba(255,255,255,0.02);
+}
+.log-entry.type-score  { border-left-color: var(--gold); }
+.log-entry.type-info   { border-left-color: #1848b0; }
+.log-entry.type-action { border-left-color: #187840; }
+.log-entry.type-warn   { border-left-color: #dc2626; }
+.log-time {
+  font-size: 10px; color: var(--muted); white-space: nowrap;
+  font-variant-numeric: tabular-nums; flex-shrink: 0;
+  padding-top: 1px;
+}
+.log-icon { flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+.log-msg { color: var(--cream2); }
+.log-msg b { color: var(--cream); }
+.log-empty {
+  text-align: center; color: var(--muted);
+  font-size: 12px; padding: 2rem;
+  font-style: italic;
+}
+.log-count-badge {
+  display: none; position: absolute;
+  top: -5px; right: -5px;
+  background: var(--gold); color: var(--dark);
+  font-size: 9px; font-weight: 700;
+  border-radius: 10px; padding: 1px 5px;
+  min-width: 16px; text-align: center;
+}
+.log-btn-wrap { position: relative; }
+
+/* ── MODAL ───────────────────────────────────────── */
+/* ── MODAL RAPPORT ───────────────────────────────── */
+.modal-bg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  z-index: 200; align-items: center; justify-content: center;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  background: var(--dark2); border: 1px solid rgba(200,144,28,0.2);
+  border-radius: var(--radius);
+  width: min(960px, 96vw); max-height: 90vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.modal-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--dark3);
+  border-bottom: 1px solid var(--dark5);
+  flex-shrink: 0;
+}
+.modal-toolbar-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
+  color: var(--white); display: flex; align-items: center; gap: 10px;
+}
+.modal-toolbar-title::before {
+  content: ''; display: block; width: 3px; height: 18px;
+  background: var(--gold); border-radius: 2px;
+}
+.modal-toolbar-actions { display: flex; gap: 8px; align-items: center; }
+.modal-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 22px; line-height: 1;
+  padding: 2px 6px; border-radius: 4px; transition: color .15s;
+}
+.modal-close:hover { color: var(--cream); }
+.modal-body {
+  overflow-y: auto; flex: 1;
+  padding: 0;
+}
+.modal-body::-webkit-scrollbar { width: 5px; }
+.modal-body::-webkit-scrollbar-track { background: var(--dark3); }
+.modal-body::-webkit-scrollbar-thumb { background: var(--dark5); border-radius: 3px; }
+
+/* ── REPORT LAYOUT ───────────────────────────────── */
+.rpt { font-family: 'Inter', sans-serif; color: var(--cream2); }
+
+/* Cover page */
+.rpt-cover {
+  padding: 3rem 3rem 2.5rem;
+  background: var(--dark3);
+  border-bottom: 2px solid rgba(200,144,28,0.25);
+}
+.rpt-cover-logo {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 32px; color: var(--white); letter-spacing: -.03em;
+  margin-bottom: .25rem;
+}
+.rpt-cover-logo span { color: var(--gold2); }
+.rpt-cover-subtitle {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted2);
+  margin-bottom: 2rem;
+}
+.rpt-cover-org {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700; color: var(--gold2);
+  padding: 12px 0; border-top: 1px solid rgba(200,144,28,0.2);
+  border-bottom: 1px solid rgba(200,144,28,0.2);
+  margin-bottom: 1.5rem;
+}
+.rpt-cover-meta {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+}
+.rpt-cover-meta-item { font-size: 12px; color: var(--muted2); }
+.rpt-cover-meta-item b { color: var(--cream); display: block; font-size: 14px; margin-top: 2px; }
+
+/* Summary table */
+.rpt-section {
+  padding: 2rem 3rem;
+  border-bottom: 1px solid var(--dark5);
+}
+.rpt-section:last-child { border-bottom: none; }
+.rpt-section-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700;
+  color: var(--gold2); text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;
+}
+.rpt-section-title::after {
+  content: ''; flex: 1; height: 1px; background: rgba(200,144,28,0.2);
+}
+
+/* Score summary grid */
+.rpt-score-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.rpt-score-card {
+  background: var(--dark4); border-radius: 8px;
+  padding: 12px 14px; border-left: 3px solid transparent;
+  position: relative;
+}
+.rpt-score-card-letter {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800;
+  font-size: 16px; margin-bottom: 2px;
+}
+.rpt-score-card-name {
+  font-size: 10px; color: var(--muted2); margin-bottom: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.rpt-score-card-val {
+  font-size: 20px; font-weight: 700; line-height: 1;
+}
+.rpt-score-card-lv {
+  font-size: 9px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; margin-top: 3px;
+}
+.rpt-score-card-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--dark5); border-radius: 0 0 8px 8px; overflow: hidden;
+}
+.rpt-score-card-bar-fill { height: 100%; border-radius: 0 0 8px 8px; transition: width .4s; }
+
+/* Global score row */
+.rpt-global-row {
+  display: flex; align-items: center; gap: 1.5rem;
+  background: var(--dark4); border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 1.5rem;
+  border: 1px solid rgba(200,144,28,0.2);
+}
+.rpt-global-score {
+  font-family: 'Playfair Display', serif; font-size: 48px;
+  font-weight: 800; color: var(--gold2); line-height: 1;
+  flex-shrink: 0;
+}
+.rpt-global-den { font-size: 18px; color: var(--muted); flex-shrink: 0; }
+.rpt-global-info { flex: 1; }
+.rpt-global-level { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.rpt-global-bar { height: 6px; background: var(--dark5); border-radius: 3px; overflow: hidden; }
+.rpt-global-bar-fill { height: 100%; border-radius: 3px; }
+.rpt-global-note { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* Pillar detail sections */
+.rpt-pillar {
+  padding: 2rem 3rem;
+  border-bottom: 2px solid var(--dark5);
+}
+.rpt-pillar-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.rpt-pillar-badge {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800;
+  font-size: 20px; color: var(--white); flex-shrink: 0;
+}
+.rpt-pillar-title-group { flex: 1; }
+.rpt-pillar-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
+  font-weight: 700; color: var(--white);
+}
+.rpt-pillar-sub { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+.rpt-pillar-score-chip {
+  padding: 6px 16px; border-radius: 20px; font-size: 14px;
+  font-weight: 700; flex-shrink: 0;
+}
+
+/* Criteria table */
+.rpt-crit-tbl {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  margin-bottom: 1.25rem;
+}
+.rpt-crit-tbl thead th {
+  padding: 7px 10px; text-align: left;
+  background: var(--dark4);
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted);
+  border-bottom: 1px solid var(--dark5);
+}
+.rpt-crit-tbl thead th:first-child { border-radius: 6px 0 0 0; }
+.rpt-crit-tbl thead th:last-child  { border-radius: 0 6px 0 0; }
+.rpt-crit-tbl tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+.rpt-crit-tbl tbody tr:last-child { border-bottom: none; }
+.rpt-crit-tbl tbody td { padding: 8px 10px; color: var(--cream2); vertical-align: top; }
+.rpt-crit-tbl tbody tr.na-row td { opacity: .4; font-style: italic; }
+
+.rpt-score-pill {
+  display: inline-block; padding: 2px 9px; border-radius: 10px;
+  font-size: 10px; font-weight: 700; white-space: nowrap;
+}
+.rpt-prio-pill {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 9px; font-weight: 600;
+}
+.rpt-action-block {
+  background: var(--dark4); border-radius: 6px;
+  padding: 8px 10px; font-size: 11px; color: var(--cream2);
+  border-left: 3px solid transparent;
+  margin-top: 8px;
+}
+.rpt-action-block-title {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted2); margin-bottom: 4px;
+}
+
+/* ── PRINT STYLES ────────────────────────────────── */
+@media print {
+  body > *:not(#printFrame) { display: none !important; }
+  #printFrame { display: block !important; }
+}
+#printFrame { display: none; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-logo"><span>ARCHIVE</span><span style="color:var(--gold3);font-size:14px;margin-left:2px">+</span></div>
+  <div class="topnav-sub">Self-Audit — Maturité documentaire</div>
+  <div class="org-input-wrap">
+    <label for="orgName">Organisme</label>
+    <input type="text" id="orgName" class="org-input"
+      placeholder="Nom de l'organisme…"
+      oninput="updateOrgDisplay(this.value)">
+  </div>
+  <div class="topnav-actions">
+    <button class="btn btn-dim" id="themeBtn" onclick="toggleTheme()" title="Basculer le thème">🌙 Sombre</button>
+    <button class="btn btn-dim" onclick="exportReport()">📊 Rapport</button>
+    <button class="btn btn-dim" onclick="saveLocal()">💾 Sauvegarder</button>
+    <button class="btn btn-dim" onclick="loadLocal()">📂 Charger</button>
+    <button class="btn btn-gold" onclick="printReport()">🖨 Imprimer</button>
+    <div class="log-btn-wrap">
+      <button class="btn btn-dim" onclick="toggleLogPanel()" id="logBtn">🗒 Journal</button>
+      <span class="log-count-badge" id="logBadge">0</span>
+    </div>
+    <button class="btn btn-red" onclick="resetAll()">↺ Reset</button>
+  </div>
+</nav>
+
+<!-- HERO DASHBOARD -->
+<div class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-top">
+      <!-- Global score -->
+      <div class="global-card">
+        <div class="global-card-label">Score global ARCHIVE</div>
+        <div id="heroOrgName" style="font-size:12px;font-weight:600;color:var(--gold2);min-height:16px;margin-bottom:2px"></div>
+        <div class="global-score-row">
+          <span class="global-score-num" id="globalScore">—</span>
+          <span class="global-score-den">/ 5</span>
+        </div>
+        <div class="global-level" id="globalLevel">En attente d'évaluation</div>
+        <div class="global-progress">
+          <div class="global-progress-fill" id="globalBar" style="width:0%"></div>
+        </div>
+        <div class="global-note" id="globalNote">Renseignez les critères ci-dessous</div>
+      </div>
+
+      <!-- Pillar mini grid -->
+      <div class="pillars-grid-card">
+        <div class="pillars-grid-title">Scores par pilier</div>
+        <div class="pillars-mini-grid" id="pillarsMiniGrid"></div>
+      </div>
+    </div>
+
+    <!-- RADAR — grand et centré -->
+    <div class="radar-section">
+      <div class="radar-section-header">
+        <div class="radar-section-title">Radar de maturité ARCHIVE</div>
+        <div class="radar-section-sub">Se met à jour en temps réel · Cible ARCHIVE = 4/5</div>
+      </div>
+      <div class="radar-container">
+        <div class="radar-chart-wrap">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <div class="radar-legend-panel">
+          <div class="legend-maturity">
+            <div class="legend-maturity-title">Niveaux de maturité</div>
+            <div class="leg-row"><span class="leg-dot" style="background:var(--r1)">1</span> <b>Inexistant</b> — Aucune pratique</div>
+            <div class="leg-row"><span class="leg-dot" style="background:var(--r2)">2</span> <b>Initié</b> — Informel</div>
+            <div class="leg-row"><span class="leg-dot" style="background:var(--r3)">3</span> <b>Défini</b> — Documenté</div>
+            <div class="leg-row"><span class="leg-dot" style="background:var(--r4)">4</span> <b>Maîtrisé</b> — Systématique</div>
+            <div class="leg-row"><span class="leg-dot" style="background:var(--r5)">5</span> <b>Optimisé</b> — En continu</div>
+          </div>
+          <div class="pillar-scores-list">
+            <div class="pillar-scores-title">Détail par pilier</div>
+            <div id="pillarScoresList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUDIT SECTION -->
+<div class="audit-section" id="pillarsContainer"></div>
+
+<!-- LOG PANEL -->
+<div class="log-panel" id="logPanel">
+  <div class="log-box">
+    <div class="log-header">
+      <div class="log-title">Journal d'audit</div>
+      <div class="log-actions">
+        <button class="btn btn-dim" onclick="exportLog()" style="font-size:11px;padding:4px 10px">⬇ Exporter</button>
+        <button class="btn btn-red" onclick="clearLog()" style="font-size:11px;padding:4px 10px">🗑 Effacer</button>
+        <button class="btn btn-dim" onclick="toggleLogPanel()" style="font-size:15px;padding:4px 8px">×</button>
+      </div>
+    </div>
+    <div class="log-body" id="logBody">
+      <div class="log-empty" id="logEmpty">Aucune activité enregistrée</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RAPPORT -->
+<div class="modal-bg" id="reportModal">
+  <div class="modal">
+    <div class="modal-toolbar">
+      <div class="modal-toolbar-title">Rapport de synthèse ARCHIVE+</div>
+      <div class="modal-toolbar-actions">
+        <button class="btn btn-dim" onclick="printReport()" style="font-size:11px">⬇ Ouvrir / Imprimer PDF</button>
+        <button class="modal-close" onclick="document.getElementById('reportModal').classList.remove('open')">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div id="reportContent" class="rpt"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HIDDEN PRINT FRAME -->
+<div id="printFrame"></div>
+
+<script>
+// ── ORGANISM ────────────────────────────────────────────────────────────────
+let orgName = '';
+function updateOrgDisplay(val) {
+  orgName = val.trim();
+  const hero = document.getElementById('heroOrgName');
+  if (hero) hero.textContent = orgName || '';
+  if (orgName) addLog('info', '🏢', `Organisme défini : <b>${orgName}</b>`);
+}
+
+// ── THEME ────────────────────────────────────────────────────────────────────
+let isLight = false;
+function toggleTheme() {
+  isLight = !isLight;
+  const html = document.documentElement;
+  const btn  = document.getElementById('themeBtn');
+  if (isLight) {
+    html.classList.add('light');
+    btn.textContent = '☀ Clair';
+    btn.style.cssText = 'background:#fff8e8;color:#8a5800;border:1px solid #e0c060';
+  } else {
+    html.classList.remove('light');
+    btn.textContent = '🌙 Sombre';
+    btn.style.cssText = '';
+  }
+  // Refresh radar colors for the new theme
+  refreshRadarTheme();
+  addLog('info', isLight ? '☀' : '🌙', `Thème basculé : <b>${isLight ? 'Clair' : 'Sombre'}</b>`);
+}
+
+function radarThemeColors() {
+  if (isLight) {
+    return {
+      gridColor:   'rgba(0,0,0,0.08)',
+      angleColor:  'rgba(0,0,0,0.08)',
+      tickColor:   '#7a7570',
+      labelColor:  '#2e2b25',
+      tooltipBg:   '#ffffff',
+      tooltipBorder:'#e0c060',
+      tooltipTitle:'#8a5800',
+      tooltipBody: '#2e2b25',
+      targetBg:    'rgba(24,72,176,0.05)',
+      targetBorder:'rgba(24,72,176,0.25)',
+      currentBg:   'rgba(176,112,16,0.10)',
+      currentBorder:'#b07010',
+    };
+  }
+  return {
+    gridColor:   'rgba(255,255,255,0.06)',
+    angleColor:  'rgba(255,255,255,0.06)',
+    tickColor:   '#686660',
+    labelColor:  '#d0c8b8',
+    tooltipBg:   '#1c1c19',
+    tooltipBorder:'#3d2c0c',
+    tooltipTitle:'#e6b444',
+    tooltipBody: '#d0c8b8',
+    targetBg:    'rgba(24,72,176,0.06)',
+    targetBorder:'rgba(100,150,255,0.3)',
+    currentBg:   'rgba(200,144,28,0.12)',
+    currentBorder:'#c8901c',
+  };
+}
+
+function refreshRadarTheme() {
+  if (!radarInst) return;
+  const c = radarThemeColors();
+  const r = radarInst.options.scales.r;
+  r.grid.color        = c.gridColor;
+  r.angleLines.color  = c.angleColor;
+  r.ticks.color       = c.tickColor;
+  r.pointLabels.color = c.labelColor;
+  radarInst.data.datasets[0].backgroundColor = c.currentBg;
+  radarInst.data.datasets[0].borderColor     = c.currentBorder;
+  radarInst.data.datasets[1].backgroundColor = c.targetBg;
+  radarInst.data.datasets[1].borderColor     = c.targetBorder;
+  radarInst.options.plugins.tooltip.backgroundColor = c.tooltipBg;
+  radarInst.options.plugins.tooltip.borderColor     = c.tooltipBorder;
+  radarInst.options.plugins.tooltip.titleColor      = c.tooltipTitle;
+  radarInst.options.plugins.tooltip.bodyColor       = c.tooltipBody;
+  radarInst.options.plugins.legend.labels.color     = c.tickColor;
+  radarInst.update();
+}
+
+// ── LOGGING SYSTEM ───────────────────────────────────────────────────────────
+const LOG_ENTRIES = [];
+let logUnread = 0;
+
+function addLog(type, icon, msg) {
+  const now = new Date();
+  const time = now.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const date = now.toLocaleDateString('fr-FR');
+  LOG_ENTRIES.unshift({ type, icon, msg, time, date, ts: now.toISOString() });
+  renderLog();
+  logUnread++;
+  const badge = document.getElementById('logBadge');
+  if (badge) {
+    badge.style.display = 'block';
+    badge.textContent = logUnread > 99 ? '99+' : logUnread;
+  }
+}
+
+function renderLog() {
+  const body = document.getElementById('logBody');
+  const empty = document.getElementById('logEmpty');
+  if (!body) return;
+  // Remove all entries (keep empty msg)
+  body.querySelectorAll('.log-entry').forEach(e => e.remove());
+  if (!LOG_ENTRIES.length) {
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  LOG_ENTRIES.forEach(e => {
+    const div = document.createElement('div');
+    div.className = `log-entry type-${e.type}`;
+    div.innerHTML = `<span class="log-time">${e.time}</span><span class="log-icon">${e.icon}</span><span class="log-msg">${e.msg}</span>`;
+    body.appendChild(div);
+  });
+}
+
+function toggleLogPanel() {
+  const panel = document.getElementById('logPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    logUnread = 0;
+    const badge = document.getElementById('logBadge');
+    if (badge) badge.style.display = 'none';
+  }
+}
+
+function clearLog() {
+  if (!confirm('Effacer tout le journal ?')) return;
+  LOG_ENTRIES.length = 0;
+  renderLog();
+}
+
+function exportLog() {
+  const org = orgName || 'Organisme_inconnu';
+  const lines = LOG_ENTRIES.map(e =>
+    `[${e.date} ${e.time}] [${e.type.toUpperCase()}] ${e.msg.replace(/<[^>]+>/g,'')}`
+  ).join('\n');
+  const header = `Journal d'audit ARCHIVE+\nOrganisme : ${org}\nExporté le : ${new Date().toLocaleString('fr-FR')}\n${'─'.repeat(60)}\n\n`;
+  const blob = new Blob([header + lines], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ARCHIVE_journal_${org.replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.txt`;
+  a.click();
+  addLog('action', '⬇', `Journal exporté pour <b>${org}</b>`);
+}
+
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('logPanel');
+  if (panel && panel.classList.contains('open') && e.target === panel) {
+    panel.classList.remove('open');
+  }
+});
+
+const PILLAR_LABELS = {A:'Alignement',R:'Règles',C:'Conservation',H:'Habilitations',I:'Intégrité',V:'Valorisation',E:'Exploitation',Cu:'Culture'};
+
+const PILLARS = [
+  { id:'A', col:'var(--A)', hex:'#c47a0a', label:'Alignement stratégique & culture',
+    items:[
+      {t:'Une politique documentaire écrite existe et est validée par la direction', proof:'Ex : document signé, charte, note de service', action:'Rédiger et faire valider une charte documentaire en CODIR'},
+      {t:'Les objectifs documentaires sont alignés sur le plan stratégique de l\'organisation', proof:'Ex : mention dans le plan stratégique, PV de réunion', action:'Intégrer les objectifs documentaires au prochain plan stratégique'},
+      {t:'Un responsable de la gouvernance documentaire est désigné', proof:'Ex : fiche de poste, organigramme, délégation écrite', action:'Nommer un responsable documentaire, même à temps partiel'},
+      {t:'Les documents critiques pour la continuité sont identifiés et listés', proof:'Ex : liste validée, cartographie des risques documentaires', action:'Réaliser un atelier d\'identification des documents critiques par direction'},
+      {t:'Des KPIs documentaires sont définis et suivis trimestriellement', proof:'Ex : tableau de bord, compte-rendu de suivi', action:'Définir 3 KPIs et planifier une revue trimestrielle en CODIR'},
+      {t:'La direction donne l\'exemple en respectant les bonnes pratiques documentaires', proof:'Ex : témoignages, constats terrain', action:'Organiser une sensibilisation de la direction aux bonnes pratiques'},
+      {t:'Les collaborateurs sont sensibilisés et impliqués dans la démarche documentaire', proof:'Ex : support de formation, liste de participants', action:'Lancer une campagne de sensibilisation interne'},
+    ]
+  },
+  { id:'R', col:'var(--R)', hex:'#1848b0', label:'Règles & conformité',
+    items:[
+      {t:'Un tableau des durées légales de conservation existe pour tous les types de documents', proof:'Ex : tableau Excel/Word validé par le juriste', action:'Établir un tableau de gestion — Loi 88-09 et Loi 18-07'},
+      {t:'Les procédures de conservation sont documentées et connues des équipes', proof:'Ex : procédures écrites, formation réalisée', action:'Rédiger et diffuser une procédure de conservation par type de document'},
+      {t:'Un registre de traitement des données personnelles est tenu à jour (Loi 18-07)', proof:'Ex : registre des traitements, fichier DPO', action:'Créer ou mettre à jour le registre des traitements — obligation Loi 18-07'},
+      {t:'Les données personnelles sont identifiées et protégées selon la Loi 18-07', proof:'Ex : cartographie des données, mesures de protection documentées', action:'Réaliser une cartographie des données personnelles'},
+      {t:'Les obligations de versement aux Archives nationales sont connues (Loi 88-09)', proof:'Ex : tableau de versement, correspondance Archives nationales', action:'Identifier les fonds à verser — Loi 88-09'},
+      {t:'Une procédure de destruction sécurisée et traçable est en place', proof:'Ex : procédure écrite, bordereau de destruction', action:'Mettre en place un bordereau d\'élimination conforme à la Loi 88-09'},
+      {t:'Un audit de conformité documentaire est réalisé au moins une fois par an', proof:'Ex : rapport d\'audit, PV de réunion de revue', action:'Planifier un audit annuel avec le juriste et le DPO'},
+    ]
+  },
+  { id:'C', col:'var(--C)', hex:'#b81c1c', label:'Conservation des documents',
+    items:[
+      {t:'Un tableau de gestion des durées de conservation est établi pour tous les types de documents', proof:'Ex : tableau Excel validé par le juriste, conforme Loi 88-09', action:'Établir un tableau de gestion par type de document avec durées légales (Loi 88-09)'},
+      {t:'Les durées de conservation sont respectées et connues des équipes', proof:'Ex : procédures écrites, formations réalisées, affichage interne', action:'Diffuser le tableau de gestion à toutes les directions et former les équipes'},
+      {t:'Les supports de conservation sont adaptés à la nature et la durée de conservation des documents', proof:'Ex : politique de support (papier, numérique, coffre-fort), archivage physique sécurisé', action:'Définir pour chaque type de document le support de conservation adapté'},
+      {t:'Les conditions de conservation physique sont conformes (température, humidité, sécurité)', proof:'Ex : rapport de contrôle des locaux d\'archivage, contrat prestataire', action:'Réaliser un audit des conditions de conservation physique des archives'},
+      {t:'Un processus de versement aux Archives nationales est en place (Loi 88-09)', proof:'Ex : bordereau de versement, correspondance avec les Archives nationales', action:'Identifier les fonds à verser et établir un calendrier de versement conforme à la Loi 88-09'},
+      {t:'Les données personnelles sont conservées uniquement pendant la durée nécessaire (Loi 18-07)', proof:'Ex : registre des traitements avec durées définies, purge automatique', action:'Aligner les durées de conservation des données personnelles sur les obligations de la Loi 18-07'},
+      {t:'Un processus de destruction sécurisée et traçable est appliqué en fin de durée de conservation', proof:'Ex : bordereau d\'élimination signé, certificat de destruction, log de suppression numérique', action:'Mettre en place un bordereau d\'élimination conforme et un prestataire certifié pour le papier'},
+    ]
+  },
+  { id:'H', col:'var(--H)', hex:'#187840', label:'Habilitations & sécurité',
+    items:[
+      {t:'Les documents sont classifiés par niveaux de confidentialité', proof:'Ex : politique de classification, étiquettes sur les documents', action:'Définir 4 niveaux (Public/Interne/Confidentiel/Secret)'},
+      {t:'Les droits d\'accès sont gérés par groupe/rôle et non par individu', proof:'Ex : paramétrage GED/AD, liste des groupes créés', action:'Migrer la gestion des accès vers des groupes par rôle'},
+      {t:'Une procédure de révision des accès existe lors de tout changement de poste', proof:'Ex : procédure RH-DSI, ticket de révision d\'accès', action:'Créer un processus RH-DSI de révision des droits'},
+      {t:'Les accès des collaborateurs partants sont révoqués le jour du départ', proof:'Ex : checklist départ, log de désactivation des comptes', action:'Mettre en place une checklist de départ avec révocation des accès'},
+      {t:'Une revue annuelle des habilitations est conduite', proof:'Ex : rapport de revue, liste des accès validés', action:'Planifier une revue annuelle avec RH et DSI'},
+      {t:'Les documents confidentiels sont chiffrés au repos et en transit', proof:'Ex : politique de chiffrement, paramétrage GED', action:'Activer le chiffrement sur tous les espaces de stockage confidentiels'},
+      {t:'L\'authentification à deux facteurs est activée sur les systèmes documentaires', proof:'Ex : paramétrage technique, politique de sécurité SI', action:'Activer le MFA sur tous les accès aux systèmes documentaires'},
+    ]
+  },
+  { id:'I', col:'var(--I)', hex:'#6018c8', label:'Intégrité & traçabilité',
+    items:[
+      {t:'La signature électronique est utilisée pour tous les documents engageants', proof:'Ex : contrats signés électroniquement, outil de signature déployé', action:'Déployer un outil de signature électronique sous 3 mois'},
+      {t:'Le versioning est activé sur tous les outils de stockage documentaire', proof:'Ex : paramétrage GED, SharePoint, historique des versions', action:'Vérifier et activer le versioning sur chaque outil de stockage'},
+      {t:'Un journal d\'audit des modifications est actif et consulté', proof:'Ex : logs d\'audit, rapport d\'activité consulté régulièrement', action:'Activer les journaux d\'audit et planifier une consultation mensuelle'},
+      {t:'Les documents à valeur légale sont archivés dans un coffre-fort numérique', proof:'Ex : contrat avec prestataire, documents versés', action:'Identifier les documents à valeur légale et souscrire à un coffre-fort'},
+      {t:'Les documents archivés sont protégés contre toute modification ultérieure', proof:'Ex : paramétrage immuabilité, politique d\'archivage définitif', action:'Configurer l\'immuabilité sur les espaces d\'archivage définitif'},
+      {t:'Un horodatage certifié est appliqué aux documents critiques', proof:'Ex : service d\'horodatage actif, documents horodatés', action:'Activer l\'horodatage certifié sur le coffre-fort numérique'},
+      {t:'L\'intégrité des archives est vérifiée périodiquement', proof:'Ex : rapport de vérification d\'intégrité, hachages contrôlés', action:'Planifier une vérification d\'intégrité semestrielle'},
+    ]
+  },
+  { id:'V', col:'var(--V)', hex:'#0a7868', label:'Valorisation des documents',
+    items:[
+      {t:'La recherche en texte intégral est disponible dans le système documentaire', proof:'Ex : démonstration du moteur de recherche, requête de test réussie', action:'Activer la recherche full-text dans la GED'},
+      {t:'Les documents sont indexés avec des métadonnées pertinentes', proof:'Ex : politique de métadonnées, contrôle de qualité', action:'Définir un schéma de métadonnées obligatoires (auteur, date, type, projet)'},
+      {t:'Une bibliothèque de modèles et documents de référence est accessible à tous', proof:'Ex : bibliothèque partagée dans la GED', action:'Créer un espace Bibliothèque dans la GED'},
+      {t:'Un processus de retour d\'expérience documenté existe après chaque projet', proof:'Ex : fiches REX réalisées, modèle de REX utilisé', action:'Créer un modèle de REX et l\'intégrer à chaque clôture de projet'},
+      {t:'Les connaissances des experts clés sont documentées avant leur départ', proof:'Ex : entretiens de capitalisation réalisés', action:'Identifier les experts clés et planifier des sessions de capitalisation'},
+      {t:'Les statistiques d\'usage des documents sont suivies et analysées', proof:'Ex : tableau de bord d\'usage, rapport GED', action:'Activer les statistiques d\'usage dans la GED'},
+      {t:'Les documents obsolètes sont identifiés et retirés de la circulation', proof:'Ex : liste des documents archivés/supprimés', action:'Mettre en place une revue documentaire annuelle'},
+    ]
+  },
+  { id:'E', col:'var(--E)', hex:'#0858a0', label:'Exploitation & pilotage',
+    items:[
+      {t:'Des indicateurs de performance documentaire sont définis et mesurés', proof:'Ex : tableau de bord KPIs, rapport trimestriel', action:'Définir 5 KPIs et les intégrer au tableau de bord de direction'},
+      {t:'Un tableau de bord documentaire est présenté régulièrement en direction', proof:'Ex : présentations CODIR, comptes-rendus avec point documentaire', action:'Préparer un slide mensuel de 5 min sur les KPIs pour le CODIR'},
+      {t:'Un audit documentaire annuel est planifié et réalisé', proof:'Ex : rapport d\'audit, planning d\'audit, PV de clôture', action:'Planifier l\'audit annuel sur 2 jours avec le Records Manager'},
+      {t:'Un plan d\'amélioration est formalisé suite à chaque audit', proof:'Ex : plan d\'action documenté, responsables et délais définis', action:'Formaliser un plan d\'amélioration avec responsables et dates'},
+      {t:'Les actions d\'amélioration sont suivies jusqu\'à leur réalisation', proof:'Ex : outil de suivi (Jira, Asana, Excel), taux de réalisation', action:'Intégrer les actions documentaires dans l\'outil de suivi de projet'},
+      {t:'La gestion documentaire est intégrée dans tout projet de transformation', proof:'Ex : PV mentionnant l\'aspect documentaire, livrables documentaires', action:'Créer un checklist documentaire pour chaque projet de transformation'},
+      {t:'Le système documentaire est adapté lors de chaque réorganisation majeure', proof:'Ex : revue documentaire post-réorganisation', action:'Intégrer un audit documentaire dans chaque processus de réorganisation'},
+    ]
+  },
+  { id:'Cu', col:'var(--K)', hex:'#a01878', dispLetter:'C', label:'Culture documentaire',
+    items:[
+      {t:'La direction donne l\'exemple en respectant et promouvant les bonnes pratiques documentaires', proof:'Ex : messages de la direction, constats terrain', action:'Organiser une session de sensibilisation de la direction et des managers'},
+      {t:'Les collaborateurs comprennent l\'importance de bien documenter pour la performance collective', proof:'Ex : enquête de perception, résultats de formation', action:'Lancer une communication interne sur les bénéfices de la bonne gestion documentaire'},
+      {t:'La formation documentaire est intégrée dans le parcours de chaque nouveau collaborateur', proof:'Ex : programme d\'onboarding, liste des formations suivies', action:'Créer un module e-learning de 30 min sur les pratiques documentaires'},
+      {t:'Les bonnes pratiques documentaires sont valorisées et reconnues dans l\'organisation', proof:'Ex : mentions en réunion d\'équipe, newsletter interne', action:'Mettre en place un système de reconnaissance des bonnes pratiques'},
+      {t:'Les erreurs documentaires sont traitées comme des opportunités d\'amélioration', proof:'Ex : culture no-blame, REX documentaires', action:'Introduire un point leçon apprise dans les rétrospectives de projet'},
+      {t:'Des ambassadeurs documentaires existent dans chaque équipe', proof:'Ex : liste des ambassadeurs nommés, missions définies', action:'Identifier et former des ambassadeurs documentaires volontaires'},
+      {t:'La maturité documentaire est perçue comme un avantage compétitif', proof:'Ex : discours de direction, intégration dans la communication externe', action:'Intégrer la maturité documentaire dans les supports de présentation'},
+    ]
+  },
+];
+
+const SCORES  = {}, PROOFS = {}, ACTIONS = {}, APPLIC = {}, PRIOS = {};
+PILLARS.forEach(p => {
+  SCORES[p.id]  = Array(p.items.length).fill(0);
+  PROOFS[p.id]  = Array(p.items.length).fill('');
+  ACTIONS[p.id] = Array(p.items.length).fill('');
+  APPLIC[p.id]  = Array(p.items.length).fill(true);
+  PRIOS[p.id]   = Array(p.items.length).fill('');
+});
+
+const LVL_DATA = [
+  {label:'—',          bg:'rgba(255,255,255,.06)', col:'#908880', bar:'#3a3a36'},
+  {label:'Inexistant', bg:'rgba(220,38,38,.15)',   col:'#fca5a5', bar:'#dc2626'},
+  {label:'Initié',     bg:'rgba(224,112,0,.15)',   col:'#fcd34d', bar:'#e07000'},
+  {label:'Défini',     bg:'rgba(184,144,0,.15)',   col:'#fde68a', bar:'#b89000'},
+  {label:'Maîtrisé',   bg:'rgba(58,112,16,.15)',   col:'#86efac', bar:'#3a7010'},
+  {label:'Optimisé',   bg:'rgba(10,136,88,.15)',   col:'#6ee7b7', bar:'#0a8858'},
+];
+function lvl(s) {
+  if(s<=0) return LVL_DATA[0]; if(s<1.5) return LVL_DATA[1];
+  if(s<2.5) return LVL_DATA[2]; if(s<3.5) return LVL_DATA[3];
+  if(s<4.5) return LVL_DATA[4]; return LVL_DATA[5];
+}
+function pillarAvg(id) {
+  const sc=SCORES[id], ap=APPLIC[id];
+  const filled = sc.filter((v,i)=>ap[i]&&v>0);
+  const total  = sc.filter((v,i)=>ap[i]).length;
+  if(!filled.length||!total) return 0;
+  return sc.filter((v,i)=>ap[i]).reduce((a,b)=>a+b,0)/total;
+}
+function globalAvg() {
+  const avgs = PILLARS.map(p=>pillarAvg(p.id));
+  const filled = avgs.filter(v=>v>0);
+  if(!filled.length) return 0;
+  return avgs.reduce((a,b)=>a+b,0)/PILLARS.length;
+}
+
+// ── BUILD MINI GRID ─────────────────────────────────────────────────────────
+const miniGrid = document.getElementById('pillarsMiniGrid');
+PILLARS.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'pmini';
+  el.id = `pmini_${p.id}`;
+  el.style.setProperty('--pc', p.hex);
+  el.innerHTML = `
+    <div class="pmini-letter" style="color:${p.hex}">${p.disp||p.id}</div>
+    <div class="pmini-name">${p.label}</div>
+    <div class="pmini-score" id="pmini_score_${p.id}" style="color:${p.hex}">—</div>
+    <div class="pmini-bar"><div class="pmini-bar-fill" id="pmini_bar_${p.id}" style="background:${p.hex}"></div></div>`;
+  el.style.cssText += `border-left: 3px solid ${p.hex};`;
+  miniGrid.appendChild(el);
+});
+
+// ── BUILD PILLAR SCORES LIST ─────────────────────────────────────────────────
+const pslEl = document.getElementById('pillarScoresList');
+PILLARS.forEach(p => {
+  const row = document.createElement('div');
+  row.className = 'psl-row';
+  row.innerHTML = `
+    <span class="psl-letter" style="color:${p.hex}">${p.disp||p.id}</span>
+    <div class="psl-bar"><div class="psl-bar-fill" id="psl_bar_${p.id}" style="width:0%;background:${p.hex}"></div></div>
+    <span class="psl-val" id="psl_val_${p.id}" style="color:${p.hex}">—</span>`;
+  pslEl.appendChild(row);
+});
+
+// ── RADAR ────────────────────────────────────────────────────────────────────
+let radarInst = null;
+function initRadar(data) {
+  const labels = PILLARS.map(p => `${p.disp||p.id} — ${p.label.split(' ').slice(0,2).join(' ')}`);
+  const c = radarThemeColors();
+  const cfg = {
+    type: 'radar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Niveau actuel',
+          data,
+          backgroundColor: c.currentBg,
+          borderColor: c.currentBorder,
+          borderWidth: 2.5,
+          pointBackgroundColor: PILLARS.map(p => p.hex),
+          pointBorderColor: PILLARS.map(p => p.hex),
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          spanGaps: true,
+        },
+        {
+          label: 'Cible ARCHIVE+ (4/5)',
+          data: Array(PILLARS.length).fill(4),
+          backgroundColor: c.targetBg,
+          borderColor: c.targetBorder,
+          borderWidth: 1.5,
+          borderDash: [6,4],
+          pointRadius: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        r: {
+          min: 0, max: 5,
+          ticks: {
+            stepSize: 1,
+            font: { size: 11, family: 'Inter' },
+            color: c.tickColor,
+            backdropColor: 'transparent',
+          },
+          grid: { color: c.gridColor },
+          angleLines: { color: c.angleColor },
+          pointLabels: {
+            font: { size: 12, family: 'Inter', weight: '600' },
+            color: c.labelColor,
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            font: { size: 12, family: 'Inter' },
+            color: c.tickColor,
+            boxWidth: 14,
+            padding: 18,
+          }
+        },
+        tooltip: {
+          backgroundColor: c.tooltipBg,
+          borderColor: c.tooltipBorder,
+          borderWidth: 1,
+          titleColor: c.tooltipTitle,
+          bodyColor: c.tooltipBody,
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${ctx.raw !== null ? ctx.raw+' / 5' : 'Non évalué'}`
+          }
+        }
+      }
+    }
+  };
+  radarInst = new Chart(document.getElementById('radarChart'), cfg);
+}
+
+// ── UPDATE UI ────────────────────────────────────────────────────────────────
+function updateUI() {
+  const avgs = PILLARS.map(p => pillarAvg(p.id));
+  const g    = globalAvg();
+  const glv  = lvl(g);
+
+  // Global
+  document.getElementById('globalScore').textContent = g>0 ? g.toFixed(2) : '—';
+  document.getElementById('globalLevel').textContent = g>0 ? glv.label : 'En attente d\'évaluation';
+  document.getElementById('globalLevel').style.color = g>0 ? glv.col : '#686660';
+  document.getElementById('globalBar').style.width = g>0 ? (g/5*100)+'%' : '0%';
+  document.getElementById('globalBar').style.background = glv.bar;
+  const total  = PILLARS.reduce((a,p)=>a+SCORES[p.id].filter(v=>v>0).length,0);
+  const applic = PILLARS.reduce((a,p)=>a+APPLIC[p.id].filter(Boolean).length,0);
+  document.getElementById('globalNote').textContent = g>0
+    ? `${total} / ${applic} critères applicables renseignés`
+    : 'Renseignez les critères ci-dessous';
+
+  PILLARS.forEach((p,i) => {
+    const av = avgs[i];
+    const lv2 = lvl(av);
+    const pct = av>0 ? (av/5*100).toFixed(0) : 0;
+
+    // mini grid
+    const ms = document.getElementById(`pmini_score_${p.id}`);
+    const mb = document.getElementById(`pmini_bar_${p.id}`);
+    if(ms) ms.textContent = av>0 ? av.toFixed(2) : '—';
+    if(mb) mb.style.width = pct+'%';
+
+    // psl list
+    const psb = document.getElementById(`psl_bar_${p.id}`);
+    const psv = document.getElementById(`psl_val_${p.id}`);
+    if(psb) psb.style.width = pct+'%';
+    if(psv) { psv.textContent = av>0 ? av.toFixed(1) : '—'; psv.style.color = av>0 ? lv2.col : '#686660'; }
+
+    // pillar badge & footer
+    const badge = document.getElementById(`badge_${p.id}`);
+    const fsc   = document.getElementById(`fs_${p.id}`);
+    const flv   = document.getElementById(`fl_${p.id}`);
+    if(badge) {
+      badge.textContent = av>0 ? av.toFixed(2)+' / 5' : '— / 5';
+      badge.style.background = av>0 ? lv2.bg : '';
+      badge.style.color = av>0 ? lv2.col : '';
+    }
+    if(fsc) fsc.textContent = av>0 ? av.toFixed(2)+' / 5' : '—';
+    if(flv) {
+      flv.textContent = av>0 ? lv2.label : '—';
+      flv.style.background = av>0 ? lv2.bg : 'transparent';
+      flv.style.color = av>0 ? lv2.col : '#686660';
+    }
+  });
+
+  // Radar
+  const radarData = avgs.map(v => v>0 ? parseFloat(v.toFixed(2)) : null);
+  if (!radarInst) {
+    initRadar(radarData);
+  } else {
+    radarInst.data.datasets[0].data = radarData;
+    radarInst.update('none');
+  }
+}
+
+// ── BUILD PILLAR CARDS ────────────────────────────────────────────────────────
+const container = document.getElementById('pillarsContainer');
+const RLABELS   = ['Inexistant','Initié','Défini','Maîtrisé','Optimisé'];
+
+PILLARS.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'pillar-card';
+  card.id = `card_${p.id}`;
+
+  card.innerHTML = `
+    <div class="pillar-header" onclick="toggleCard('${p.id}')"
+         style="--pc:${p.hex}">
+      <div class="pillar-letter-badge" style="background:${p.hex}">${p.disp||p.id}</div>
+      <div class="pillar-title-group">
+        <div class="pillar-title">${p.label}</div>
+        <div class="pillar-sub">Note · Preuve · Plan d'action · Priorité</div>
+      </div>
+      <div class="pillar-badge" id="badge_${p.id}">— / 5</div>
+      <div class="pillar-chevron">▼</div>
+    </div>
+    <div class="pillar-body" id="body_${p.id}">
+      ${p.items.map((item,i) => `
+      <div class="criterion" id="crit_${p.id}_${i}">
+        <div class="crit-main">
+          <span class="crit-num">${i+1}</span>
+          <span class="crit-text">${item.t}</span>
+          <div class="toggle-wrap">
+            <label>Applicable</label>
+            <label class="toggle">
+              <input type="checkbox" id="ap_${p.id}_${i}" checked
+                onchange="setApplicable('${p.id}',${i},this.checked)">
+              <div class="toggle-track"></div>
+              <div class="toggle-knob"></div>
+            </label>
+          </div>
+        </div>
+        <div class="rating-row" id="rr_${p.id}_${i}">
+          ${[1,2,3,4,5].map(v=>`
+          <div class="ropt r${v}">
+            <input type="radio" name="r_${p.id}_${i}" id="r_${p.id}_${i}_${v}" value="${v}"
+              onchange="setScore('${p.id}',${i},${v})">
+            <label for="r_${p.id}_${i}_${v}">
+              <span class="rn">${v}</span>
+              <span class="rl">${RLABELS[v-1]}</span>
+            </label>
+          </div>`).join('')}
+        </div>
+        <div class="detail-grid" id="dg_${p.id}_${i}">
+          <div class="dfield">
+            <label>📎 Preuve / Justificatif <em>— ${item.proof}</em></label>
+            <textarea placeholder="Décrivez la preuve existante…"
+              oninput="PROOFS['${p.id}'][${i}]=this.value"></textarea>
+          </div>
+          <div class="dfield">
+            <label>🎯 Plan d'action <em>— ${item.action}</em></label>
+            <textarea placeholder="Action, responsable, délai…"
+              oninput="ACTIONS['${p.id}'][${i}]=this.value"></textarea>
+          </div>
+        </div>
+        <div class="prio-row" id="pr_${p.id}_${i}">
+          <span class="prio-label">Priorité :</span>
+          <div class="prio-opts">
+            <div class="popt ph"><input type="radio" name="prio_${p.id}_${i}"
+              id="ph_${p.id}_${i}" value="high" onchange="PRIOS['${p.id}'][${i}]='high'">
+              <label for="ph_${p.id}_${i}">🔴 Haute</label></div>
+            <div class="popt pm"><input type="radio" name="prio_${p.id}_${i}"
+              id="pm_${p.id}_${i}" value="med" onchange="PRIOS['${p.id}'][${i}]='med'">
+              <label for="pm_${p.id}_${i}">🟡 Moyenne</label></div>
+            <div class="popt pl"><input type="radio" name="prio_${p.id}_${i}"
+              id="pl_${p.id}_${i}" value="low" onchange="PRIOS['${p.id}'][${i}]='low'">
+              <label for="pl_${p.id}_${i}">🟢 Faible</label></div>
+          </div>
+        </div>
+      </div>`).join('')}
+      <div class="pillar-footer">
+        <span class="pf-label">Score moyen du pilier</span>
+        <div class="pf-right">
+          <span class="pf-score" id="fs_${p.id}">—</span>
+          <span class="pf-level" id="fl_${p.id}">—</span>
+        </div>
+      </div>
+    </div>`;
+
+  // Color the header left border
+  card.querySelector('.pillar-header').style.borderLeft = `4px solid ${p.hex}`;
+  container.appendChild(card);
+});
+
+// Open first card
+document.getElementById('card_A').classList.add('open');
+
+function toggleCard(id) {
+  document.getElementById(`card_${id}`).classList.toggle('open');
+}
+function setScore(pid, idx, val) {
+  SCORES[pid][idx] = val;
+  document.getElementById(`crit_${pid}_${idx}`)?.classList.add('scored');
+  const pillarLabel = PILLAR_LABELS[pid] || pid;
+  const critText = PILLARS.find(p=>p.id===pid)?.items[idx]?.t?.substring(0,55) || '';
+  const lvlLabel = ['Inexistant','Initié','Défini','Maîtrisé','Optimisé'][val-1];
+  addLog('score', '★', `[<b>${pid}</b> · ${pillarLabel}] Critère ${idx+1} — <b>${val}/5</b> <span style="color:var(--muted)">${lvlLabel}</span> · <i style="color:var(--muted)">${critText}…</i>`);
+  updateUI();
+}
+function setApplicable(pid, idx, checked) {
+  APPLIC[pid][idx] = checked;
+  const crit = document.getElementById(`crit_${pid}_${idx}`);
+  const rr   = document.getElementById(`rr_${pid}_${idx}`);
+  const dg   = document.getElementById(`dg_${pid}_${idx}`);
+  const pr   = document.getElementById(`pr_${pid}_${idx}`);
+  if(!checked) {
+    crit?.classList.add('crit-na');
+    SCORES[pid][idx] = 0;
+    document.querySelectorAll(`input[name="r_${pid}_${idx}"]`).forEach(r=>r.checked=false);
+    addLog('warn', '⊘', `[<b>${pid}</b>] Critère ${idx+1} marqué <b>Non applicable</b>`);
+  } else {
+    crit?.classList.remove('crit-na');
+    addLog('info', '✓', `[<b>${pid}</b>] Critère ${idx+1} réactivé`);
+  }
+  updateUI();
+}
+
+// ── EXPORT / SAVE / LOAD / RESET ─────────────────────────────────────────────
+// ── SHARED REPORT HTML BUILDER ────────────────────────────────────────────────
+function buildReportHTML() {
+  const avgs = PILLARS.map(p => pillarAvg(p.id));
+  const g    = globalAvg();
+  const glv  = lvl(g);
+  const org  = orgName || 'Organisme non défini';
+  const today = new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
+  const totalFilled = PILLARS.reduce((a,p) => a + SCORES[p.id].filter(v => v > 0).length, 0);
+  const totalApplic = PILLARS.reduce((a,p) => a + APPLIC[p.id].filter(Boolean).length, 0);
+  const totalHighPrio = PILLARS.reduce((a,p) => a + p.items.filter((_,i) => PRIOS[p.id][i]==='high').length, 0);
+
+  // ── COVER ────────────────────────────────────────────────────────────────
+  let html = `
+  <div class="rpt-cover">
+    <div class="rpt-cover-logo">ARCHIVE<span>+</span></div>
+    <div class="rpt-cover-subtitle">Rapport d'auto-évaluation — Maturité documentaire</div>
+    <div class="rpt-cover-org">${org !== 'Organisme non défini' ? org : '<span style="color:var(--muted);font-style:italic">Organisme non renseigné</span>'}</div>
+    <div class="rpt-cover-meta">
+      <div class="rpt-cover-meta-item">Date<b>${today}</b></div>
+      <div class="rpt-cover-meta-item">Cadre<b>ARCHIVE+ v6</b></div>
+      <div class="rpt-cover-meta-item">Critères évalués<b>${totalFilled} / ${totalApplic}</b></div>
+      <div class="rpt-cover-meta-item">Priorités hautes<b>${totalHighPrio > 0 ? totalHighPrio : '—'}</b></div>
+    </div>
+  </div>`;
+
+  // ── GLOBAL SCORE + PILLAR GRID ────────────────────────────────────────────
+  html += `<div class="rpt-section">
+    <div class="rpt-section-title">Tableau de bord global</div>
+    <div class="rpt-global-row">
+      <span class="rpt-global-score">${g > 0 ? g.toFixed(2) : '—'}</span>
+      <span class="rpt-global-den">/ 5</span>
+      <div class="rpt-global-info">
+        <div class="rpt-global-level" style="color:${glv.col}">${g > 0 ? glv.label : 'En attente d\'évaluation'}</div>
+        <div class="rpt-global-bar"><div class="rpt-global-bar-fill" style="width:${g>0?(g/5*100).toFixed(1)+'%':'0%'};background:${glv.bar}"></div></div>
+        <div class="rpt-global-note">${totalFilled} critère${totalFilled>1?'s':''} renseigné${totalFilled>1?'s':''} sur ${totalApplic} applicables · Cible ARCHIVE+ : 4 / 5</div>
+      </div>
+    </div>
+    <div class="rpt-score-grid">`;
+
+  PILLARS.forEach((p, i) => {
+    const av  = avgs[i];
+    const lv2 = lvl(av);
+    const pct = av > 0 ? (av/5*100).toFixed(0) : 0;
+    html += `
+      <div class="rpt-score-card" style="border-left-color:${p.hex}">
+        <div class="rpt-score-card-letter" style="color:${p.hex}">${p.disp||p.id}</div>
+        <div class="rpt-score-card-name">${p.label.split(' ').slice(0,3).join(' ')}</div>
+        <div class="rpt-score-card-val" style="color:${av>0?lv2.col:p.hex}">${av > 0 ? av.toFixed(2) : '—'}</div>
+        <div class="rpt-score-card-lv" style="color:${lv2.col}">${av > 0 ? lv2.label : '—'}</div>
+        <div class="rpt-score-card-bar"><div class="rpt-score-card-bar-fill" style="width:${pct}%;background:${p.hex}"></div></div>
+      </div>`;
+  });
+  html += `</div></div>`;
+
+  // ── PILLAR DETAIL PAGES ───────────────────────────────────────────────────
+  PILLARS.forEach((p, pi) => {
+    const av  = avgs[pi];
+    const lv2 = lvl(av);
+    const filledP = SCORES[p.id].filter((v,j) => APPLIC[p.id][j] && v>0).length;
+    const applicP = APPLIC[p.id].filter(Boolean).length;
+
+    html += `<div class="rpt-pillar" id="rpt-pillar-${p.id}">
+      <div class="rpt-pillar-header">
+        <div class="rpt-pillar-badge" style="background:${p.hex}">${p.disp||p.id}</div>
+        <div class="rpt-pillar-title-group">
+          <div class="rpt-pillar-title">${p.label}</div>
+          <div class="rpt-pillar-sub">${filledP} / ${applicP} critères évalués</div>
+        </div>
+        <div class="rpt-pillar-score-chip" style="background:${lv2.bg};color:${lv2.col}">
+          ${av > 0 ? av.toFixed(2)+' / 5' : '— / 5'} &nbsp;·&nbsp; ${av > 0 ? lv2.label : '—'}
+        </div>
+      </div>
+
+      <table class="rpt-crit-tbl">
+        <thead><tr>
+          <th style="width:24px">#</th>
+          <th>Critère</th>
+          <th style="width:100px">Note</th>
+          <th style="width:80px">Priorité</th>
+          <th>Preuve / Justificatif</th>
+          <th>Plan d'action</th>
+        </tr></thead>
+        <tbody>`;
+
+    p.items.forEach((item, ii) => {
+      const sc   = SCORES[p.id][ii];
+      const ap   = APPLIC[p.id][ii];
+      const pv   = PROOFS[p.id][ii];
+      const ac   = ACTIONS[p.id][ii];
+      const pr   = PRIOS[p.id][ii];
+      const lv3  = lvl(sc);
+      const prioColor = pr==='high' ? '#fca5a5' : pr==='med' ? '#fcd34d' : pr==='low' ? '#86efac' : '';
+      const prioLabel = pr==='high' ? '🔴 Haute' : pr==='med' ? '🟡 Moyenne' : pr==='low' ? '🟢 Faible' : '—';
+      const prioBg    = pr==='high' ? 'rgba(220,38,38,.15)' : pr==='med' ? 'rgba(224,112,0,.15)' : pr==='low' ? 'rgba(58,112,16,.15)' : '';
+
+      html += `<tr class="${!ap ? 'na-row' : ''}">
+        <td style="color:var(--muted);font-size:10px">${ii+1}</td>
+        <td>${item.t}${!ap ? ' <span style="color:var(--muted);font-size:10px">(N/A)</span>' : ''}</td>
+        <td>
+          ${sc > 0 && ap
+            ? `<span class="rpt-score-pill" style="background:${lv3.bg};color:${lv3.col}">${sc} / 5 · ${lv3.label}</span>`
+            : `<span style="color:var(--muted);font-size:10px">${ap ? 'Non évalué' : 'N/A'}</span>`}
+        </td>
+        <td>
+          ${pr
+            ? `<span class="rpt-prio-pill" style="background:${prioBg};color:${prioColor};border:1px solid ${prioColor}40">${prioLabel}</span>`
+            : '<span style="color:var(--muted);font-size:10px">—</span>'}
+        </td>
+        <td style="font-size:11px;color:var(--muted2)">${pv || '<span style="color:var(--muted);font-style:italic">—</span>'}</td>
+        <td style="font-size:11px">${ac
+          ? `<div style="background:var(--dark4);padding:5px 8px;border-radius:4px;border-left:2px solid ${p.hex};color:var(--cream2)">${ac}</div>`
+          : `<span style="color:var(--muted);font-style:italic;font-size:11px">${item.action}</span>`}
+        </td>
+      </tr>`;
+    });
+
+    html += `</tbody></table>`;
+
+    // Highlight high-priority actions for this pillar
+    const highActions = p.items.map((it,ii) => ({it,ii})).filter(({ii}) => PRIOS[p.id][ii]==='high' && ACTIONS[p.id][ii]);
+    if (highActions.length) {
+      html += `<div style="margin-top:1rem">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-bottom:8px">⚠ Actions prioritaires (Haute)</div>
+        <div style="display:flex;flex-direction:column;gap:6px">`;
+      highActions.forEach(({it, ii}) => {
+        html += `<div class="rpt-action-block" style="border-left-color:${p.hex}">
+          <div class="rpt-action-block-title">Critère ${ii+1} · ${it.t.substring(0,70)}${it.t.length>70?'…':''}</div>
+          <div>${ACTIONS[p.id][ii]}</div>
+        </div>`;
+      });
+      html += `</div></div>`;
+    }
+
+    html += `</div>`; // end .rpt-pillar
+  });
+
+  return { html, org, g, glv };
+}
+
+function exportReport() {
+  const { html, org, g } = buildReportHTML();
+  addLog('action', '📊', `Rapport affiché pour <b>${org}</b> · Score global : <b>${g>0?g.toFixed(2):'—'}/5</b>`);
+  document.getElementById('reportContent').innerHTML = html;
+  document.getElementById('reportModal').classList.add('open');
+}
+
+function buildPrintStyles() {
+  return `
+  <style>
+  :root {
+    --dark:#0c0c0a; --dark2:#141412; --dark3:#1c1c19; --dark4:#242420; --dark5:#2c2c28;
+    --gold:#c8901c; --gold2:#e6b444; --gold3:#f4d48a; --gold-d:#3d2c0c;
+    --cream:#f0ebe0; --cream2:#d0c8b8; --muted:#686660; --muted2:#908880; --white:#ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: #0c0c0a; color: #d0c8b8; font-size: 10pt; line-height: 1.5; }
+
+  .rpt-cover { padding: 3cm 2.5cm 2cm; background: #141412; border-bottom: 2px solid rgba(200,144,28,0.4); page-break-after: always; }
+  .rpt-cover-logo { font-size: 36pt; font-weight: 900; color: #ffffff; letter-spacing: -.03em; margin-bottom: .2rem; }
+  .rpt-cover-logo span { color: #e6b444; }
+  .rpt-cover-subtitle { font-size: 8pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #908880; margin-bottom: 2.5rem; font-family: Arial, sans-serif; }
+  .rpt-cover-org { font-size: 22pt; font-weight: 700; color: #e6b444; padding: 12px 0; border-top: 1px solid rgba(200,144,28,.3); border-bottom: 1px solid rgba(200,144,28,.3); margin-bottom: 2rem; font-family: Arial, sans-serif; }
+  .rpt-cover-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .rpt-cover-meta-item { font-size: 9pt; color: #908880; font-family: Arial, sans-serif; }
+  .rpt-cover-meta-item b { color: #d0c8b8; display: block; font-size: 10pt; margin-top: 2px; }
+
+  .rpt-section { padding: 1.5cm 2.5cm; page-break-after: always; }
+  .rpt-section-title { font-size: 9pt; font-weight: 700; color: #e6b444; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.2rem; font-family: Arial, sans-serif; border-bottom: 1px solid rgba(200,144,28,.2); padding-bottom: 6px; }
+
+  .rpt-global-row { display: flex; align-items: center; gap: 1.5rem; background: #242420; border-radius: 8px; padding: 14px 18px; margin-bottom: 1.5rem; border: 1px solid rgba(200,144,28,.25); }
+  .rpt-global-score { font-size: 42pt; font-weight: 900; color: #e6b444; line-height: 1; flex-shrink: 0; }
+  .rpt-global-den { font-size: 14pt; color: #686660; flex-shrink: 0; }
+  .rpt-global-info { flex: 1; }
+  .rpt-global-level { font-size: 15pt; font-weight: 700; margin-bottom: 5px; font-family: Arial, sans-serif; }
+  .rpt-global-bar { height: 5px; background: #2c2c28; border-radius: 3px; overflow: hidden; margin-bottom: 5px; }
+  .rpt-global-bar-fill { height: 100%; border-radius: 3px; }
+  .rpt-global-note { font-size: 8.5pt; color: #686660; font-family: Arial, sans-serif; }
+
+  .rpt-score-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .rpt-score-card { background: #242420; border-radius: 6px; padding: 10px 12px 14px; border-left: 3px solid transparent; position: relative; }
+  .rpt-score-card-letter { font-family: Arial, sans-serif; font-weight: 900; font-size: 14pt; margin-bottom: 2px; }
+  .rpt-score-card-name { font-size: 7.5pt; color: #908880; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: Arial, sans-serif; }
+  .rpt-score-card-val { font-size: 17pt; font-weight: 700; line-height: 1; font-family: Arial, sans-serif; }
+  .rpt-score-card-lv { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-top: 3px; font-family: Arial, sans-serif; }
+  .rpt-score-card-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: #2c2c28; overflow: hidden; border-radius: 0 0 6px 6px; }
+  .rpt-score-card-bar-fill { height: 100%; }
+
+  .rpt-pillar { padding: 1.5cm 2.5cm; page-break-before: always; }
+  .rpt-pillar-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.2rem; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,.06); }
+  .rpt-pillar-badge { width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; font-weight: 900; font-size: 20pt; color: #ffffff; flex-shrink: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .rpt-pillar-title-group { flex: 1; }
+  .rpt-pillar-title { font-size: 16pt; font-weight: 700; color: #ffffff; font-family: Arial, sans-serif; }
+  .rpt-pillar-sub { font-size: 8.5pt; color: #908880; margin-top: 2px; font-family: Arial, sans-serif; }
+  .rpt-pillar-score-chip { padding: 6px 16px; border-radius: 20px; font-size: 11pt; font-weight: 700; flex-shrink: 0; font-family: Arial, sans-serif; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  .rpt-crit-tbl { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 1rem; font-family: Arial, sans-serif; }
+  .rpt-crit-tbl thead th { padding: 7px 8px; text-align: left; background: #242420; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #686660; border-bottom: 2px solid #2c2c28; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .rpt-crit-tbl tbody tr { border-bottom: 1px solid rgba(255,255,255,.05); }
+  .rpt-crit-tbl tbody tr:nth-child(even) { background: rgba(255,255,255,.015); }
+  .rpt-crit-tbl tbody td { padding: 7px 8px; color: #d0c8b8; vertical-align: top; }
+  .rpt-crit-tbl tbody tr.na-row td { opacity: .45; font-style: italic; }
+  .rpt-score-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 7.5pt; font-weight: 700; white-space: nowrap; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .rpt-prio-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 7pt; font-weight: 700; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .rpt-action-block { background: #1c1c19; border-radius: 5px; padding: 7px 10px; font-size: 8.5pt; color: #d0c8b8; border-left: 3px solid; margin-top: 6px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .rpt-action-block-title { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #908880; margin-bottom: 4px; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .rpt-pillar { page-break-before: always; }
+    .rpt-cover  { page-break-after:  always; }
+    .rpt-section { page-break-after: always; }
+  }
+  </style>`;
+}
+
+function printReport() {
+  const { html, org, g } = buildReportHTML();
+  addLog('action', '🖨', `Export PDF/impression pour <b>${org}</b> · Score : <b>${g>0?g.toFixed(2):'—'}/5</b>`);
+
+  const fullHTML = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>ARCHIVE+ Rapport — ${org}</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+${buildPrintStyles()}
+</head>
+<body>${html}</body>
+</html>`;
+
+  // Méthode robuste : Blob URL — jamais bloqué par le navigateur
+  const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.target   = '_blank';
+  a.rel      = 'noopener';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+function saveLocal() {
+  const org = orgName || 'Organisme non défini';
+  const d = {SCORES,PROOFS,ACTIONS,APPLIC,PRIOS,orgName,savedAt:new Date().toISOString()};
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(d)],{type:'application/json'}));
+  a.download = `ARCHIVE_audit_${(orgName||'audit').replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  addLog('action', '💾', `Audit sauvegardé pour <b>${org}</b>`);
+}
+function loadLocal() {
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='.json';
+  inp.onchange = e => {
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const d = JSON.parse(ev.target.result);
+        Object.assign(SCORES,d.SCORES); Object.assign(PROOFS,d.PROOFS);
+        Object.assign(ACTIONS,d.ACTIONS); Object.assign(APPLIC,d.APPLIC);
+        Object.assign(PRIOS,d.PRIOS);
+        PILLARS.forEach(p => p.items.forEach((_,i)=>{
+          const v=SCORES[p.id][i];
+          if(v>0){const r=document.getElementById(`r_${p.id}_${i}_${v}`);if(r)r.checked=true;}
+          const t1=document.querySelector(`[oninput="PROOFS['${p.id}'][${i}]=this.value"]`);
+          const t2=document.querySelector(`[oninput="ACTIONS['${p.id}'][${i}]=this.value"]`);
+          if(t1)t1.value=PROOFS[p.id][i]||'';
+          if(t2)t2.value=ACTIONS[p.id][i]||'';
+          const ap=document.getElementById(`ap_${p.id}_${i}`);
+          if(ap){ap.checked=APPLIC[p.id][i];setApplicable(p.id,i,APPLIC[p.id][i]);}
+          const pr=PRIOS[p.id][i];
+          if(pr){const pe=document.getElementById(`p${pr.charAt(0)}_${p.id}_${i}`);if(pe)pe.checked=true;}
+        }));
+        updateUI();
+        if (d.orgName) {
+          orgName = d.orgName;
+          document.getElementById('orgName').value = d.orgName;
+          addLog('info', '📂', `Audit chargé pour <b>${d.orgName}</b> · Sauvegardé le ${new Date(d.savedAt).toLocaleDateString('fr-FR')}`);
+        } else {
+          addLog('info', '📂', `Audit chargé · Sauvegardé le ${new Date(d.savedAt||Date.now()).toLocaleDateString('fr-FR')}`);
+        }
+        alert('✅ Audit chargé avec succès !');
+      } catch(err){alert('❌ Erreur lors du chargement.');}
+    };
+    r.readAsText(e.target.files[0]);
+  };
+  inp.click();
+}
+function resetAll() {
+  if(!confirm('Réinitialiser tout l\'audit ?')) return;
+  const org = orgName || 'sans organisme';
+  addLog('warn', '↺', `Audit réinitialisé pour <b>${org}</b>`);
+  PILLARS.forEach(p=>p.items.forEach((_,i)=>{
+    SCORES[p.id][i]=0; PROOFS[p.id][i]='';
+    ACTIONS[p.id][i]=''; APPLIC[p.id][i]=true; PRIOS[p.id][i]='';
+    document.querySelectorAll(`input[name="r_${p.id}_${i}"]`).forEach(r=>r.checked=false);
+    document.querySelectorAll(`input[name="prio_${p.id}_${i}"]`).forEach(r=>r.checked=false);
+    const t1=document.querySelector(`[oninput="PROOFS['${p.id}'][${i}]=this.value"]`);
+    const t2=document.querySelector(`[oninput="ACTIONS['${p.id}'][${i}]=this.value"]`);
+    if(t1)t1.value=''; if(t2)t2.value='';
+    const ap=document.getElementById(`ap_${p.id}_${i}`);
+    if(ap){ap.checked=true;document.getElementById(`crit_${p.id}_${i}`)?.classList.remove('crit-na');}
+  }));
+  updateUI();
+}
+
+document.getElementById('reportModal').addEventListener('click',function(e){
+  if(e.target===this)this.classList.remove('open');
+});
+
+updateUI();
+addLog('info', '▶', `Session démarrée · ARCHIVE+ Self-Audit v3 · ${new Date().toLocaleDateString('fr-FR', {weekday:'long',day:'numeric',month:'long',year:'numeric'})}`);
+</script>
+</body>
+</html>
