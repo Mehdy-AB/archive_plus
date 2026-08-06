@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maturité | ARCHIVE+ | Cadre intégré de Gouvernance Documentaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<!-- ── HEADER ── -->
+<header>
+  <nav>
+    <div class="nav-logo">
+      <div class="wordmark">ARCHIVE<span>+</span></div>
+      <div class="tagline">Cadre intégré de gouvernance documentaire</div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../pages/01-accueil.html">Accueil</a></li>
+      <li><a href="../pages/03-positionnement.html">Positionnement</a></li>
+      <li><a href="../pages/07-piliers.html">Piliers</a></li>
+      <li><a href="../pages/10-referentiel.html">Référentiel</a></li>
+      <li><a href="../pages/11-maturite.html" class="active">Maturité</a></li>
+      <li><a href="../pages/12-domaines.html">Services</a></li>
+      <li><a href="../pages/13-partenaires.html">Partenaires</a></li>
+      <li><a href="../pages/14-equipe.html">Équipe</a></li>
+      <li><a href="../pages/15-contact.html">Contact</a></li>
+
+    </ul>
+    <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+  </nav>
+</header>
+
+<section class="section section-dark" id="maturite">
+  <div class="container">
+    <div class="section-head on-dark" style="margin-bottom:3rem;">
+      <div class="eyebrow">Modèle de maturité ARCHIVE+</div>
+      <h2>Où en est votre organisation ?</h2>
+      <div class="rule"></div>
+      <p>Évaluez et progressez dans la gouvernance documentaire</p>
+    </div>
+    <div class="maturity-track">
+      <div class="mat-step">
+        <div class="num">1</div>
+        <div class="label">Niveau</div>
+        <div class="name">Initial</div>
+        <div class="mat-desc">Pratiques informelles, non documentées</div>
+      </div>
+      <div class="mat-step">
+        <div class="num">2</div>
+        <div class="label">Niveau</div>
+        <div class="name">Structuré</div>
+        <div class="mat-desc">Processus définis et documentés</div>
+      </div>
+      <div class="mat-step">
+        <div class="num">3</div>
+        <div class="label">Niveau</div>
+        <div class="name">Maîtrisé</div>
+        <div class="mat-desc">Mesures, contrôles et audits en place</div>
+      </div>
+      <div class="mat-step">
+        <div class="num">4</div>
+        <div class="label">Niveau</div>
+        <div class="name">Optimisé</div>
+        <div class="mat-desc">Amélioration continue systématique</div>
+      </div>
+      <div class="mat-step">
+        <div class="num">5</div>
+        <div class="label">Niveau</div>
+        <div class="name">Excellence</div>
+        <div class="mat-desc">Référence sectorielle, innovation documentaire</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#contact" class="btn-gold"><i class="fas fa-chart-bar"></i> Commencer l'auto-évaluation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── DOMAINES ── -->
+
+
+<!-- ── PAGE NAVIGATION ── -->
+<nav class="page-nav">
+  <a href="../pages/10-referentiel.html" class="page-nav-link page-nav-prev"><i class="fas fa-arrow-left"></i> Référentiel</a>
+  <a href="/index.html" class="page-nav-home"><i class="fas fa-th-large"></i> Sommaire</a>
+  <a href="../pages/12-domaines.html" class="page-nav-link page-nav-next">Domaines & Services <i class="fas fa-arrow-right"></i></a>
+</nav>
+
+<footer>
+  <div class="f-logo">ARCHIVE<span>+</span></div>
+  <p style="margin:.4rem 0 1rem;">Structurer · Maîtriser · Valoriser l'information stratégique</p>
+  <p>© 2026 ARCHIVE+ — Cadre avancé de gouvernance documentaire — Tous droits réservés</p>
+</footer>
+
+<script src="../script.js"></script>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-frame">
+    <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</button>
+    <img id="lightboxImg" src="" alt="ARCHIVE+ Framework" />
+    <div class="lightbox-hint">Cliquez en dehors de l'image ou sur × pour fermer</div>
+  </div>
+</div>
+</body>
+</html>
+
+

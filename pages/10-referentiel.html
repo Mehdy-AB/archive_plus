@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Référentiel | ARCHIVE+ | Cadre intégré de Gouvernance Documentaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<!-- ── HEADER ── -->
+<header>
+  <nav>
+    <div class="nav-logo">
+      <div class="wordmark">ARCHIVE<span>+</span></div>
+      <div class="tagline">Cadre intégré de gouvernance documentaire</div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../pages/01-accueil.html">Accueil</a></li>
+      <li><a href="../pages/03-positionnement.html">Positionnement</a></li>
+      <li><a href="../pages/07-piliers.html">Piliers</a></li>
+      <li><a href="../pages/10-referentiel.html" class="active">Référentiel</a></li>
+      <li><a href="../pages/11-maturite.html">Maturité</a></li>
+      <li><a href="../pages/12-domaines.html">Services</a></li>
+      <li><a href="../pages/13-partenaires.html">Partenaires</a></li>
+      <li><a href="../pages/14-equipe.html">Équipe</a></li>
+      <li><a href="../pages/15-contact.html">Contact</a></li>
+
+    </ul>
+    <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+  </nav>
+</header>
+
+<section class="section section-alt" id="volumes">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Le référentiel ARCHIVE+</div>
+      <h2>Trois volumes complémentaires</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="volumes-grid">
+      <div class="vol-card">
+        <div class="vol-icon"><i class="fas fa-compass"></i></div>
+        <div class="vol-tag">Volume 1</div>
+        <h3>Guide Stratégique</h3>
+        <p>Principes directeurs, gouvernance, pilotage, conformité et modèle de maturité documentaire.</p>
+        <a href="#contact" class="vol-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="vol-card">
+        <div class="vol-icon"><i class="fas fa-tools"></i></div>
+        <div class="vol-tag">Volume 2</div>
+        <h3>Guide Opérationnel</h3>
+        <p>Méthodes, processus, outils et bonnes pratiques pour la mise en œuvre concrète du framework.</p>
+        <a href="#contact" class="vol-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="vol-card">
+        <div class="vol-icon"><i class="fas fa-book"></i></div>
+        <div class="vol-tag">Volume 3</div>
+        <h3>Référentiel &amp; Normes</h3>
+        <p>Textes réglementaires algériens, normes ISO, bonnes pratiques et référentiels internationaux.</p>
+        <a href="#contact" class="vol-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MATURITÉ ── -->
+
+
+<!-- ── PAGE NAVIGATION ── -->
+<nav class="page-nav">
+  <a href="../pages/09-demarche.html" class="page-nav-link page-nav-prev"><i class="fas fa-arrow-left"></i> Démarche</a>
+  <a href="/index.html" class="page-nav-home"><i class="fas fa-th-large"></i> Sommaire</a>
+  <a href="../pages/11-maturite.html" class="page-nav-link page-nav-next">Maturité <i class="fas fa-arrow-right"></i></a>
+</nav>
+
+<footer>
+  <div class="f-logo">ARCHIVE<span>+</span></div>
+  <p style="margin:.4rem 0 1rem;">Structurer · Maîtriser · Valoriser l'information stratégique</p>
+  <p>© 2026 ARCHIVE+ — Cadre avancé de gouvernance documentaire — Tous droits réservés</p>
+</footer>
+
+<script src="../script.js"></script>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-frame">
+    <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</button>
+    <img id="lightboxImg" src="" alt="ARCHIVE+ Framework" />
+    <div class="lightbox-hint">Cliquez en dehors de l'image ou sur × pour fermer</div>
+  </div>
+</div>
+</body>
+</html>
+
+
