@@ -1307,7 +1307,6 @@ function initRadar(data) {
     options: {
       responsive: true,
       maintainAspectRatio: true,
-      onResize: chart => { chart.options.scales.r.pointLabels.font.size = narrow() ? 10 : 12; },
       scales: {
         r: {
           min: 0, max: 5,
@@ -1320,7 +1319,7 @@ function initRadar(data) {
           grid: { color: c.gridColor },
           angleLines: { color: c.angleColor },
           pointLabels: {
-            font: { size: narrow() ? 10 : 12, family: 'Inter', weight: '600' },
+            font: () => ({ size: narrow() ? 10 : 12, family: 'Inter', weight: '600' }),
             color: c.labelColor,
             // Sur mobile, les libellés complets écrasent le radar : on garde le nom court
             callback: label => narrow() ? label.split(' — ')[1] : label,
@@ -1352,8 +1351,6 @@ function initRadar(data) {
     }
   };
   radarInst = new Chart(document.getElementById('radarChart'), cfg);
-  // Les libellés sont mesurés avant le chargement de la police Inter : on refait la mise en page ensuite
-  document.fonts?.ready.then(() => radarInst && radarInst.update());
 }
 
 // ── UPDATE UI ────────────────────────────────────────────────────────────────

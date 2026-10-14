@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable | ARCHIVE+</title>
+<script>
+// GitHub Pages respecte la casse des URL : /archive_diagnostic_express.html renvoie une 404.
+// On redirige toute variante de casse (avec ou sans .html) vers la page réelle.
+(function () {
+  const PAGES = [
+    '/ARCHIVE_Diagnostic_Express.html',
+    '/ARCHIVE_Self_Audit_v3.2.html',
+    '/pages/ARCHIVE_Diagnostic_Express.html',
+    '/pages/ARCHIVE_Self_Audit_v3.2.html'
+  ];
+  const norm = p => decodeURIComponent(p).toLowerCase().replace(/\/+$/, '').replace(/\.html$/, '');
+  const want = norm(location.pathname);
+  const hit = PAGES.find(p => norm(p) === want);
+  if (hit && hit !== location.pathname) location.replace(hit + location.search + location.hash);
+})();
+</script>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b1e35;color:#e8eef5;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-align:center;padding:16px}
+.logo{font-size:28px;font-weight:800;letter-spacing:.02em;margin-bottom:12px}
+.logo span{color:#c8901c}
+p{color:#9fb0c3;margin:0 0 20px}
+a{display:inline-block;padding:10px 20px;border-radius:8px;background:#c8901c;color:#1a1200;font-weight:600;text-decoration:none}
+</style>
+</head>
+<body>
+<div>
+  <div class="logo">ARCHIVE<span>+</span></div>
+  <p>Cette page est introuvable.</p>
+  <a href="/">Retour à l'accueil</a>
+</div>
+</body>
+</html>
