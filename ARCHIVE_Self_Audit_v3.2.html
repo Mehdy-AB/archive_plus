@@ -721,93 +721,15 @@ html.light #themeBtn { background: #fff8e8; color: #8a5800; border-color: #e0c06
 }
 
 /* ── PRINT STYLES ────────────────────────────────── */
-/* Impression directe (Ctrl+P) : on masque les commandes et on déplie tous les piliers */
 @media print {
-  .topnav-actions, .log-panel, .modal-bg, .express-banner { display: none !important; }
-  .topnav { position: static; }
-  .pillar-body { display: block !important; }
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body > *:not(#printFrame) { display: none !important; }
+  #printFrame { display: block !important; }
 }
 #printFrame { display: none; }
 
 .express-banner { max-width: 1200px; margin: 0 auto; padding: 1.25rem 2rem 0; }
 .express-banner-inner { background: var(--gold-d); border: 1px solid var(--gold); color: var(--gold3); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; line-height: 1.5; }
 .express-tag { display: inline-block; margin-left: 8px; font-size: 10px; font-weight: 600; letter-spacing: .04em; padding: 2px 8px; border-radius: 20px; background: var(--gold-d); color: var(--gold2); border: 1px solid var(--gold); vertical-align: middle; white-space: nowrap; }
-
-/* ── LIGHT THEME : contrastes ─────────────────────── */
-/* --white devient sombre en thème clair : les textes posés sur une couleur pleine restent blancs */
-html.light .pillar-letter-badge, html.light .leg-dot, html.light .rpt-pillar-badge,
-html.light .ropt input:checked ~ label { color: #ffffff; }
-html.light .toggle-knob { background: #ffffff; }
-html.light .popt.ph input:checked ~ label { color: #b91c1c; }
-html.light .popt.pm input:checked ~ label { color: #b45309; }
-html.light .popt.pl input:checked ~ label { color: #3f6212; }
-html.light .criterion:hover { background: rgba(0,0,0,0.02); }
-
-/* ── RESPONSIVE ──────────────────────────────────── */
-.btn { white-space: nowrap; }
-.rpt-tbl-wrap { overflow-x: auto; }
-
-@media (max-width: 1500px) {
-  .topnav-sub { display: none; }
-}
-@media (max-width: 1200px) {
-  .topnav { flex-wrap: wrap; height: auto; min-height: 60px; padding: 10px 1.5rem; row-gap: 10px; }
-  .org-input-wrap { flex: 1; }
-  .org-input { flex: 1; width: auto; min-width: 0; }
-  .topnav-actions { flex-wrap: wrap; width: 100%; margin-left: 0; }
-}
-@media (max-width: 1000px) {
-  .hero-top { grid-template-columns: 1fr; }
-  .pillars-grid-card { grid-column: auto; }
-  .radar-container { grid-template-columns: 1fr; }
-  .radar-chart-wrap { max-width: 560px; margin: 0 auto; }
-  .radar-legend-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .legend-maturity { margin-bottom: 0; }
-}
-@media (max-width: 640px) {
-  .topnav { position: static; padding: 10px 1rem; }
-  .org-input-wrap { border-left: none; padding-left: 0; width: 100%; }
-  .topnav-actions { gap: 6px; }
-  .topnav-actions .btn { padding: 6px 10px; font-size: 11px; }
-  .hero { padding: 1.25rem 1rem; }
-  .hero-top { gap: 1rem; margin-bottom: 1rem; }
-  .global-score-num { font-size: 44px; }
-  .pillars-grid-card { padding: 1rem; }
-  .pillars-mini-grid { grid-template-columns: repeat(2, 1fr); }
-  .radar-section { padding: 1rem; margin-top: 1rem; }
-  .radar-section-header { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 1rem; }
-  .radar-legend-panel { grid-template-columns: 1fr; }
-  .express-banner { padding: 1rem 1rem 0; }
-  .audit-section { padding: 1rem; }
-  .pillar-header { padding: 12px 14px; gap: 10px; }
-  .pillar-letter-badge { width: 36px; height: 36px; font-size: 16px; }
-  .pillar-badge { padding: 4px 10px; font-size: 11px; }
-  .criterion { padding: 14px; }
-  .crit-main { grid-template-columns: 20px 1fr; gap: 8px 10px; }
-  .toggle-wrap { grid-column: 2; padding-top: 0; }
-  .rating-row, .detail-grid, .prio-row { padding-left: 0; }
-  .ropt { flex: 1; min-width: 0; }
-  .ropt label { width: 100%; padding: 8px 2px; }
-  .ropt label .rl { font-size: 7px; }
-  .detail-grid { grid-template-columns: 1fr; }
-  .prio-row { flex-wrap: wrap; }
-  .pillar-footer { padding: 12px 14px; flex-wrap: wrap; gap: 6px; }
-  .log-box { width: 100%; height: 80vh; border-radius: var(--radius) var(--radius) 0 0; }
-  .modal { width: 100vw; max-height: 100vh; height: 100vh; border-radius: 0; }
-  .modal-toolbar { padding: 10px 14px; }
-  .rpt-cover { padding: 1.5rem 1.25rem; }
-  .rpt-cover-logo { font-size: 26px; }
-  .rpt-cover-org { font-size: 18px; }
-  .rpt-cover-meta { gap: 1rem; }
-  .rpt-section, .rpt-pillar { padding: 1.25rem; }
-  .rpt-score-grid { grid-template-columns: repeat(2, 1fr); }
-  .rpt-global-row { flex-wrap: wrap; gap: .75rem; padding: 14px; }
-  .rpt-global-score { font-size: 38px; }
-  .rpt-global-info { flex-basis: 100%; }
-  .rpt-pillar-header { flex-wrap: wrap; }
-  .rpt-crit-tbl { min-width: 640px; }
-}
 </style>
 </head>
 <body>
@@ -820,7 +742,7 @@ html.light .criterion:hover { background: rgba(0,0,0,0.02); }
     <label for="orgName">Organisme</label>
     <input type="text" id="orgName" class="org-input"
       placeholder="Nom de l'organisme…"
-      oninput="updateOrgDisplay(this.value)" onchange="logOrgChange()">
+      oninput="updateOrgDisplay(this.value)">
   </div>
   <div class="topnav-actions">
     <button class="btn btn-dim" id="themeBtn" onclick="toggleTheme()" title="Basculer le thème">🌙 Sombre</button>
@@ -938,20 +860,13 @@ html.light .criterion:hover { background: rgba(0,0,0,0.02); }
 <div id="printFrame"></div>
 
 <script>
-// Échappe le texte saisi avant de l'insérer dans du HTML (journal, rapport)
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const multiline = s => esc(s).replace(/\n/g, '<br>');
-
 // ── ORGANISM ────────────────────────────────────────────────────────────────
 let orgName = '';
 function updateOrgDisplay(val) {
   orgName = val.trim();
   const hero = document.getElementById('heroOrgName');
   if (hero) hero.textContent = orgName || '';
-}
-// Journalisé à la validation du champ, pas à chaque frappe
-function logOrgChange() {
-  if (orgName) addLog('info', '🏢', `Organisme défini : <b>${esc(orgName)}</b>`);
+  if (orgName) addLog('info', '🏢', `Organisme défini : <b>${orgName}</b>`);
 }
 
 // ── THEME ────────────────────────────────────────────────────────────────────
@@ -969,9 +884,8 @@ function toggleTheme() {
     btn.textContent = '🌙 Sombre';
     btn.style.cssText = '';
   }
-  // Refresh radar and level colors for the new theme
+  // Refresh radar colors for the new theme
   refreshRadarTheme();
-  updateUI();
   addLog('info', isLight ? '☀' : '🌙', `Thème basculé : <b>${isLight ? 'Clair' : 'Sombre'}</b>`);
 }
 
@@ -1083,9 +997,8 @@ function clearLog() {
 
 function exportLog() {
   const org = orgName || 'Organisme_inconnu';
-  const unesc = s => s.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
   const lines = LOG_ENTRIES.map(e =>
-    `[${e.date} ${e.time}] [${e.type.toUpperCase()}] ${unesc(e.msg.replace(/<[^>]+>/g,''))}`
+    `[${e.date} ${e.time}] [${e.type.toUpperCase()}] ${e.msg.replace(/<[^>]+>/g,'')}`
   ).join('\n');
   const header = `Journal d'audit ARCHIVE+\nOrganisme : ${org}\nExporté le : ${new Date().toLocaleString('fr-FR')}\n${'─'.repeat(60)}\n\n`;
   const blob = new Blob([header + lines], { type: 'text/plain;charset=utf-8' });
@@ -1093,7 +1006,7 @@ function exportLog() {
   a.href = URL.createObjectURL(blob);
   a.download = `ARCHIVE_journal_${org.replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.txt`;
   a.click();
-  addLog('action', '⬇', `Journal exporté pour <b>${esc(org)}</b>`);
+  addLog('action', '⬇', `Journal exporté pour <b>${org}</b>`);
 }
 
 document.addEventListener('click', function(e) {
@@ -1213,23 +1126,11 @@ const LVL_DATA = [
   {label:'Maîtrisé',   bg:'rgba(58,112,16,.15)',   col:'#86efac', bar:'#3a7010'},
   {label:'Optimisé',   bg:'rgba(10,136,88,.15)',   col:'#6ee7b7', bar:'#0a8858'},
 ];
-// Variante thème clair : les teintes pastel ci-dessus sont illisibles sur fond clair
-const LVL_DATA_LIGHT = [
-  {label:'—',          bg:'rgba(0,0,0,.05)',       col:'#7a7570', bar:'#c8c4bb'},
-  {label:'Inexistant', bg:'rgba(220,38,38,.12)',   col:'#b91c1c', bar:'#dc2626'},
-  {label:'Initié',     bg:'rgba(224,112,0,.14)',   col:'#b45309', bar:'#e07000'},
-  {label:'Défini',     bg:'rgba(184,144,0,.16)',   col:'#854d0e', bar:'#b89000'},
-  {label:'Maîtrisé',   bg:'rgba(58,112,16,.14)',   col:'#3f6212', bar:'#3a7010'},
-  {label:'Optimisé',   bg:'rgba(10,136,88,.14)',   col:'#047857', bar:'#0a8858'},
-];
-// forceDark : le rapport imprimé utilise toujours la palette sombre
-function lvl(s, forceDark) {
-  const L = (isLight && !forceDark) ? LVL_DATA_LIGHT : LVL_DATA;
-  if(s<=0) return L[0]; if(s<1.5) return L[1];
-  if(s<2.5) return L[2]; if(s<3.5) return L[3];
-  if(s<4.5) return L[4]; return L[5];
+function lvl(s) {
+  if(s<=0) return LVL_DATA[0]; if(s<1.5) return LVL_DATA[1];
+  if(s<2.5) return LVL_DATA[2]; if(s<3.5) return LVL_DATA[3];
+  if(s<4.5) return LVL_DATA[4]; return LVL_DATA[5];
 }
-const letter = p => p.dispLetter || p.id;
 function pillarAvg(id) {
   const sc=SCORES[id], ap=APPLIC[id];
   const filled = sc.filter((v,i)=>ap[i]&&v>0);
@@ -1250,7 +1151,7 @@ PILLARS.forEach(p => {
   el.id = `pmini_${p.id}`;
   el.style.setProperty('--pc', p.hex);
   el.innerHTML = `
-    <div class="pmini-letter" style="color:${p.hex}">${letter(p)}</div>
+    <div class="pmini-letter" style="color:${p.hex}">${p.disp||p.id}</div>
     <div class="pmini-name">${p.label}</div>
     <div class="pmini-score" id="pmini_score_${p.id}" style="color:${p.hex}">—</div>
     <div class="pmini-bar"><div class="pmini-bar-fill" id="pmini_bar_${p.id}" style="background:${p.hex}"></div></div>`;
@@ -1264,7 +1165,7 @@ PILLARS.forEach(p => {
   const row = document.createElement('div');
   row.className = 'psl-row';
   row.innerHTML = `
-    <span class="psl-letter" style="color:${p.hex}">${letter(p)}</span>
+    <span class="psl-letter" style="color:${p.hex}">${p.disp||p.id}</span>
     <div class="psl-bar"><div class="psl-bar-fill" id="psl_bar_${p.id}" style="width:0%;background:${p.hex}"></div></div>
     <span class="psl-val" id="psl_val_${p.id}" style="color:${p.hex}">—</span>`;
   pslEl.appendChild(row);
@@ -1273,8 +1174,7 @@ PILLARS.forEach(p => {
 // ── RADAR ────────────────────────────────────────────────────────────────────
 let radarInst = null;
 function initRadar(data) {
-  const labels = PILLARS.map(p => `${letter(p)} — ${PILLAR_LABELS[p.id]}`);
-  const narrow = () => window.innerWidth < 640;
+  const labels = PILLARS.map(p => `${p.disp||p.id} — ${p.label.split(' ').slice(0,2).join(' ')}`);
   const c = radarThemeColors();
   const cfg = {
     type: 'radar',
@@ -1319,10 +1219,8 @@ function initRadar(data) {
           grid: { color: c.gridColor },
           angleLines: { color: c.angleColor },
           pointLabels: {
-            font: () => ({ size: narrow() ? 10 : 12, family: 'Inter', weight: '600' }),
+            font: { size: 12, family: 'Inter', weight: '600' },
             color: c.labelColor,
-            // Sur mobile, les libellés complets écrasent le radar : on garde le nom court
-            callback: label => narrow() ? label.split(' — ')[1] : label,
           }
         }
       },
@@ -1362,7 +1260,7 @@ function updateUI() {
   // Global
   document.getElementById('globalScore').textContent = g>0 ? g.toFixed(2) : '—';
   document.getElementById('globalLevel').textContent = g>0 ? glv.label : 'En attente d\'évaluation';
-  document.getElementById('globalLevel').style.color = g>0 ? glv.col : 'var(--muted)';
+  document.getElementById('globalLevel').style.color = g>0 ? glv.col : '#686660';
   document.getElementById('globalBar').style.width = g>0 ? (g/5*100)+'%' : '0%';
   document.getElementById('globalBar').style.background = glv.bar;
   const total  = PILLARS.reduce((a,p)=>a+SCORES[p.id].filter(v=>v>0).length,0);
@@ -1386,7 +1284,7 @@ function updateUI() {
     const psb = document.getElementById(`psl_bar_${p.id}`);
     const psv = document.getElementById(`psl_val_${p.id}`);
     if(psb) psb.style.width = pct+'%';
-    if(psv) { psv.textContent = av>0 ? av.toFixed(1) : '—'; psv.style.color = av>0 ? lv2.col : 'var(--muted)'; }
+    if(psv) { psv.textContent = av>0 ? av.toFixed(1) : '—'; psv.style.color = av>0 ? lv2.col : '#686660'; }
 
     // pillar badge & footer
     const badge = document.getElementById(`badge_${p.id}`);
@@ -1407,7 +1305,7 @@ function updateUI() {
     if(flv) {
       flv.textContent = av>0 ? lv2.label : '—';
       flv.style.background = av>0 ? lv2.bg : 'transparent';
-      flv.style.color = av>0 ? lv2.col : 'var(--muted)';
+      flv.style.color = av>0 ? lv2.col : '#686660';
     }
   });
 
@@ -1433,7 +1331,7 @@ PILLARS.forEach(p => {
   card.innerHTML = `
     <div class="pillar-header" onclick="toggleCard('${p.id}')"
          style="--pc:${p.hex}">
-      <div class="pillar-letter-badge" style="background:${p.hex}">${letter(p)}</div>
+      <div class="pillar-letter-badge" style="background:${p.hex}">${p.disp||p.id}</div>
       <div class="pillar-title-group">
         <div class="pillar-title">${p.label}</div>
         <div class="pillar-sub">Note · Preuve · Plan d'action · Priorité</div>
@@ -1546,11 +1444,11 @@ function setApplicable(pid, idx, checked) {
 
 // ── EXPORT / SAVE / LOAD / RESET ─────────────────────────────────────────────
 // ── SHARED REPORT HTML BUILDER ────────────────────────────────────────────────
-function buildReportHTML(forPrint) {
+function buildReportHTML() {
   const avgs = PILLARS.map(p => pillarAvg(p.id));
   const g    = globalAvg();
-  const glv  = lvl(g, forPrint);
-  const org  = esc(orgName) || 'Organisme non défini';
+  const glv  = lvl(g);
+  const org  = orgName || 'Organisme non défini';
   const today = new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
   const totalFilled = PILLARS.reduce((a,p) => a + SCORES[p.id].filter(v => v > 0).length, 0);
   const totalApplic = PILLARS.reduce((a,p) => a + APPLIC[p.id].filter(Boolean).length, 0);
@@ -1586,12 +1484,12 @@ function buildReportHTML(forPrint) {
 
   PILLARS.forEach((p, i) => {
     const av  = avgs[i];
-    const lv2 = lvl(av, forPrint);
+    const lv2 = lvl(av);
     const pct = av > 0 ? (av/5*100).toFixed(0) : 0;
     html += `
       <div class="rpt-score-card" style="border-left-color:${p.hex}">
-        <div class="rpt-score-card-letter" style="color:${p.hex}">${letter(p)}</div>
-        <div class="rpt-score-card-name">${p.label}</div>
+        <div class="rpt-score-card-letter" style="color:${p.hex}">${p.disp||p.id}</div>
+        <div class="rpt-score-card-name">${p.label.split(' ').slice(0,3).join(' ')}</div>
         <div class="rpt-score-card-val" style="color:${av>0?lv2.col:p.hex}">${av > 0 ? av.toFixed(2) : '—'}</div>
         <div class="rpt-score-card-lv" style="color:${lv2.col}">${av > 0 ? lv2.label : '—'}</div>
         <div class="rpt-score-card-bar"><div class="rpt-score-card-bar-fill" style="width:${pct}%;background:${p.hex}"></div></div>
@@ -1602,13 +1500,13 @@ function buildReportHTML(forPrint) {
   // ── PILLAR DETAIL PAGES ───────────────────────────────────────────────────
   PILLARS.forEach((p, pi) => {
     const av  = avgs[pi];
-    const lv2 = lvl(av, forPrint);
+    const lv2 = lvl(av);
     const filledP = SCORES[p.id].filter((v,j) => APPLIC[p.id][j] && v>0).length;
     const applicP = APPLIC[p.id].filter(Boolean).length;
 
     html += `<div class="rpt-pillar" id="rpt-pillar-${p.id}">
       <div class="rpt-pillar-header">
-        <div class="rpt-pillar-badge" style="background:${p.hex}">${letter(p)}</div>
+        <div class="rpt-pillar-badge" style="background:${p.hex}">${p.disp||p.id}</div>
         <div class="rpt-pillar-title-group">
           <div class="rpt-pillar-title">${p.label}</div>
           <div class="rpt-pillar-sub">${filledP} / ${applicP} critères évalués</div>
@@ -1618,7 +1516,7 @@ function buildReportHTML(forPrint) {
         </div>
       </div>
 
-      <div class="rpt-tbl-wrap"><table class="rpt-crit-tbl">
+      <table class="rpt-crit-tbl">
         <thead><tr>
           <th style="width:24px">#</th>
           <th>Critère</th>
@@ -1635,9 +1533,8 @@ function buildReportHTML(forPrint) {
       const pv   = PROOFS[p.id][ii];
       const ac   = ACTIONS[p.id][ii];
       const pr   = PRIOS[p.id][ii];
-      const lv3  = lvl(sc, forPrint);
-      const pc = (isLight && !forPrint) ? {high:'#b91c1c',med:'#b45309',low:'#3f6212'} : {high:'#fca5a5',med:'#fcd34d',low:'#86efac'};
-      const prioColor = pc[pr] || '';
+      const lv3  = lvl(sc);
+      const prioColor = pr==='high' ? '#fca5a5' : pr==='med' ? '#fcd34d' : pr==='low' ? '#86efac' : '';
       const prioLabel = pr==='high' ? '🔴 Haute' : pr==='med' ? '🟡 Moyenne' : pr==='low' ? '🟢 Faible' : '—';
       const prioBg    = pr==='high' ? 'rgba(220,38,38,.15)' : pr==='med' ? 'rgba(224,112,0,.15)' : pr==='low' ? 'rgba(58,112,16,.15)' : '';
 
@@ -1654,15 +1551,15 @@ function buildReportHTML(forPrint) {
             ? `<span class="rpt-prio-pill" style="background:${prioBg};color:${prioColor};border:1px solid ${prioColor}40">${prioLabel}</span>`
             : '<span style="color:var(--muted);font-size:10px">—</span>'}
         </td>
-        <td style="font-size:11px;color:var(--muted2)">${pv ? multiline(pv) : '<span style="color:var(--muted);font-style:italic">—</span>'}</td>
+        <td style="font-size:11px;color:var(--muted2)">${pv || '<span style="color:var(--muted);font-style:italic">—</span>'}</td>
         <td style="font-size:11px">${ac
-          ? `<div style="background:var(--dark4);padding:5px 8px;border-radius:4px;border-left:2px solid ${p.hex};color:var(--cream2)">${multiline(ac)}</div>`
+          ? `<div style="background:var(--dark4);padding:5px 8px;border-radius:4px;border-left:2px solid ${p.hex};color:var(--cream2)">${ac}</div>`
           : `<span style="color:var(--muted);font-style:italic;font-size:11px">${item.action}</span>`}
         </td>
       </tr>`;
     });
 
-    html += `</tbody></table></div>`;
+    html += `</tbody></table>`;
 
     // Highlight high-priority actions for this pillar
     const highActions = p.items.map((it,ii) => ({it,ii})).filter(({ii}) => PRIOS[p.id][ii]==='high' && ACTIONS[p.id][ii]);
@@ -1673,7 +1570,7 @@ function buildReportHTML(forPrint) {
       highActions.forEach(({it, ii}) => {
         html += `<div class="rpt-action-block" style="border-left-color:${p.hex}">
           <div class="rpt-action-block-title">Critère ${ii+1} · ${it.t.substring(0,70)}${it.t.length>70?'…':''}</div>
-          <div>${multiline(ACTIONS[p.id][ii])}</div>
+          <div>${ACTIONS[p.id][ii]}</div>
         </div>`;
       });
       html += `</div></div>`;
@@ -1762,7 +1659,7 @@ function buildPrintStyles() {
 }
 
 function printReport() {
-  const { html, org, g } = buildReportHTML(true);
+  const { html, org, g } = buildReportHTML();
   addLog('action', '🖨', `Export PDF/impression pour <b>${org}</b> · Score : <b>${g>0?g.toFixed(2):'—'}/5</b>`);
 
   const fullHTML = `<!DOCTYPE html>
@@ -1794,7 +1691,7 @@ function saveLocal() {
   a.href = URL.createObjectURL(new Blob([JSON.stringify(d)],{type:'application/json'}));
   a.download = `ARCHIVE_audit_${(orgName||'audit').replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.json`;
   a.click();
-  addLog('action', '💾', `Audit sauvegardé pour <b>${esc(org)}</b>`);
+  addLog('action', '💾', `Audit sauvegardé pour <b>${org}</b>`);
 }
 function loadLocal() {
   const inp = document.createElement('input');
@@ -1807,11 +1704,7 @@ function loadLocal() {
         Object.assign(SCORES,d.SCORES); Object.assign(PROOFS,d.PROOFS);
         Object.assign(ACTIONS,d.ACTIONS); Object.assign(APPLIC,d.APPLIC);
         Object.assign(PRIOS,d.PRIOS);
-        document.querySelectorAll('.express-tag').forEach(e=>e.remove());
-        document.getElementById('expressBanner').hidden = true;
         PILLARS.forEach(p => p.items.forEach((_,i)=>{
-          // Remet d'abord la ligne à blanc pour ne pas garder l'état précédent
-          document.querySelectorAll(`input[name="r_${p.id}_${i}"], input[name="prio_${p.id}_${i}"]`).forEach(r=>r.checked=false);
           const v=SCORES[p.id][i];
           if(v>0){const r=document.getElementById(`r_${p.id}_${i}_${v}`);if(r)r.checked=true;}
           const t1=document.querySelector(`[oninput="PROOFS['${p.id}'][${i}]=this.value"]`);
@@ -1819,16 +1712,15 @@ function loadLocal() {
           if(t1)t1.value=PROOFS[p.id][i]||'';
           if(t2)t2.value=ACTIONS[p.id][i]||'';
           const ap=document.getElementById(`ap_${p.id}_${i}`);
-          if(ap) ap.checked=APPLIC[p.id][i];
-          document.getElementById(`crit_${p.id}_${i}`)?.classList.toggle('crit-na', !APPLIC[p.id][i]);
+          if(ap){ap.checked=APPLIC[p.id][i];setApplicable(p.id,i,APPLIC[p.id][i]);}
           const pr=PRIOS[p.id][i];
           if(pr){const pe=document.getElementById(`p${pr.charAt(0)}_${p.id}_${i}`);if(pe)pe.checked=true;}
         }));
         updateUI();
         if (d.orgName) {
+          orgName = d.orgName;
           document.getElementById('orgName').value = d.orgName;
-          updateOrgDisplay(d.orgName);
-          addLog('info', '📂', `Audit chargé pour <b>${esc(d.orgName)}</b> · Sauvegardé le ${new Date(d.savedAt).toLocaleDateString('fr-FR')}`);
+          addLog('info', '📂', `Audit chargé pour <b>${d.orgName}</b> · Sauvegardé le ${new Date(d.savedAt).toLocaleDateString('fr-FR')}`);
         } else {
           addLog('info', '📂', `Audit chargé · Sauvegardé le ${new Date(d.savedAt||Date.now()).toLocaleDateString('fr-FR')}`);
         }
@@ -1842,7 +1734,7 @@ function loadLocal() {
 function resetAll() {
   if(!confirm('Réinitialiser tout l\'audit ?')) return;
   const org = orgName || 'sans organisme';
-  addLog('warn', '↺', `Audit réinitialisé pour <b>${esc(org)}</b>`);
+  addLog('warn', '↺', `Audit réinitialisé pour <b>${org}</b>`);
   PILLARS.forEach(p=>p.items.forEach((_,i)=>{
     SCORES[p.id][i]=0; PROOFS[p.id][i]='';
     ACTIONS[p.id][i]=''; APPLIC[p.id][i]=true; PRIOS[p.id][i]='';

@@ -2,10 +2,330 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>ARCHIVE+</title>
-<link rel="canonical" href="ARCHIVE_Diagnostic_Express.html">
-<meta http-equiv="refresh" content="0; url=ARCHIVE_Diagnostic_Express.html">
-<script>location.replace('ARCHIVE_Diagnostic_Express.html' + location.search + location.hash);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCHIVE+ · Diagnostic Express</title>
+<style>
+:root{--bg:#0c0c0a;--card:#141412;--card2:#1c1c19;--line:#2c2c28;--text:#f0ebe0;--mut:#908880;--gold:#c8901c;--gold2:#e6b444;--gold-d:#3d2c0c;--red:#dc2626;--org:#e07000;--grn:#187840}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px}
+.logo{font-weight:700;color:var(--gold2);letter-spacing:.02em}
+.top span:last-child{color:var(--mut)}
+h1{font-size:24px;line-height:1.25;margin:0 0 10px}
+h2{font-size:18px;margin:0 0 6px}
+p{margin:0 0 12px}
+.mut{color:var(--mut);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.btn{display:block;width:100%;padding:13px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--text);font-size:15px;cursor:pointer;text-align:left;margin-bottom:10px;font-family:inherit}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:#1a1200;font-weight:600;text-align:center}
+.btn.primary:hover{background:var(--gold2)}
+.btn small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+a.btn{text-decoration:none}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0 18px}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:3px;transition:width .25s}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:20px;color:#fff;margin-bottom:12px}
+.q{font-size:19px;line-height:1.4;margin:0 0 18px}
+.back{background:none;border:none;color:var(--mut);cursor:pointer;font-size:13px;padding:6px 0;font-family:inherit}
+.hide{display:none!important}
+.score{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.pill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600}
+.prow{display:grid;grid-template-columns:132px minmax(0,1fr) 34px;gap:8px;align-items:center;font-size:13px;margin-bottom:10px}
+.track{height:7px;background:var(--line);border-radius:4px}
+.track i{display:block;height:7px;border-radius:4px}
+.vig{background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.4);border-radius:10px;padding:12px;margin-bottom:8px;font-size:14px}
+.vig b{display:block;color:#fca5a5;font-size:13px;margin-bottom:2px}
+.vigs{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:18px}
+.vigs ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+.vigs li{margin-bottom:4px}
+.sk{height:8px;background:var(--line);border-radius:4px;margin-top:8px}
+input[type=text],input[type=email],input[type=tel],select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--text);font-size:15px;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+.f{margin-bottom:10px}
+.err{color:#fca5a5;font-size:12px;min-height:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+label.chk{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.45;margin-bottom:8px;cursor:pointer}
+label.chk input{margin-top:2px}
+.legal{font-size:11px;color:var(--mut);line-height:1.45;margin:10px 0 0}
+.ok{background:rgba(24,120,64,.15);border:1px solid var(--grn);border-radius:10px;padding:12px;margin-bottom:14px;font-size:14px}
+.note{font-size:12px;color:var(--mut);margin:4px 0 16px}
+</style>
 </head>
-<body><p><a href="ARCHIVE_Diagnostic_Express.html">Continuer vers la page ARCHIVE+</a></p></body>
+<body>
+<div class="wrap">
+  <div class="top"><span class="logo">ARCHIVE+</span><span>Diagnostic Express</span></div>
+
+  <section id="intro">
+    <h1>Où en est la gouvernance documentaire de votre organisation ?</h1>
+    <p class="mut">18 questions, environ 5 minutes. Vous voyez votre score tout de suite, sans inscription.</p>
+    <div class="card" style="margin-bottom:16px">
+      <p style="margin:0 0 6px"><b>Trois piliers évalués</b></p>
+      <p class="mut" style="margin:0">Règles et conformité, conservation des documents, habilitations et sécurité.</p>
+    </div>
+    <button class="btn primary" onclick="startQuiz()">Commencer le diagnostic</button>
+  </section>
+
+  <section id="quiz" class="hide">
+    <div class="mut" id="qcount"></div>
+    <div class="bar"><i id="qbar"></i></div>
+    <span class="tag" id="qtag"></span>
+    <p class="q" id="qtext"></p>
+    <button class="btn" onclick="answer('o')">Oui, documenté<small>C'est en place et formalisé</small></button>
+    <button class="btn" onclick="answer('p')">En partie<small>Pratique existante, mais incomplète ou non formalisée</small></button>
+    <button class="btn" onclick="answer('n')">Non<small>Rien de cela n'est en place</small></button>
+    <button class="back" id="backBtn" onclick="goBack()">← Question précédente</button>
+  </section>
+
+  <section id="result" class="hide">
+    <div class="score">
+      <svg width="92" height="92" viewBox="0 0 92 92" role="img" aria-label="Score global">
+        <circle cx="46" cy="46" r="37" fill="none" stroke="#2c2c28" stroke-width="8"/>
+        <circle id="ring" cx="46" cy="46" r="37" fill="none" stroke="#e6b444" stroke-width="8" stroke-linecap="round" stroke-dasharray="0 233" transform="rotate(-90 46 46)"/>
+        <text id="ringTxt" x="46" y="52" text-anchor="middle" font-size="20" font-weight="600" fill="#f0ebe0"></text>
+      </svg>
+      <div>
+        <div class="mut">Votre score global</div>
+        <div style="font-size:20px;font-weight:600;margin:2px 0 6px" id="scoreTxt"></div>
+        <span class="pill" id="lvlPill"></span>
+      </div>
+    </div>
+    <p class="mut" id="lvlComment"></p>
+    <div id="pbars" style="margin:16px 0 4px"></div>
+    <p class="note">Le diagnostic rapide plafonne au niveau « Défini ». Les niveaux « Maîtrisé » et « Optimisé » se mesurent dans l'audit complet, avec preuves à l'appui.</p>
+
+    <div id="vigMain"></div>
+    <div class="vigs" id="vigOthers"></div>
+
+    <div id="capture" class="card">
+      <h2>Voir votre synthèse détaillée</h2>
+      <p class="mut">Les autres points de vigilance et la suite du parcours s'affichent juste après.<span id="mailNote" class="hide"> Vous recevez aussi votre synthèse par email.</span></p>
+      <div class="f"><input id="f-email" type="email" placeholder="Email professionnel" aria-label="Email"><div class="err" id="e-email"></div></div>
+      <div class="f"><input id="f-org" type="text" placeholder="Nom de votre organisation" aria-label="Organisation"><div class="err" id="e-org"></div></div>
+      <div class="f"><input id="f-role" type="text" placeholder="Votre fonction" aria-label="Fonction"><div class="err" id="e-role"></div></div>
+      <div class="grid2">
+        <select id="f-sect" aria-label="Secteur"><option value="">Secteur</option><option>Secteur public</option><option>Énergie et industrie</option><option>Santé</option><option>Banque et assurance</option><option>Éducation</option><option>Autre</option></select>
+        <select id="f-taille" aria-label="Taille"><option value="">Taille</option><option>1 à 49</option><option>50 à 249</option><option>250 et plus</option></select>
+      </div>
+      <label class="chk"><input type="checkbox" id="f-call" onchange="document.getElementById('f-tel').classList.toggle('hide',!this.checked)"> Je souhaite être rappelé</label>
+      <div class="f"><input id="f-tel" class="hide" type="tel" placeholder="Téléphone" aria-label="Téléphone"></div>
+      <label class="chk"><input type="checkbox" id="c1"><span>J'accepte que mes réponses et mes coordonnées servent à produire ma synthèse et à me proposer la suite du parcours.</span></label>
+      <div class="err" id="e-c1" style="margin-bottom:8px"></div>
+      <label class="chk"><input type="checkbox" id="c2"><span class="mut" style="font-size:12px">Facultatif : je souhaite recevoir des contenus et des offres ARCHIVE+.</span></label>
+      <button class="btn primary" style="margin-top:12px" onclick="submitLead()">Voir ma synthèse détaillée</button>
+      <p class="legal">GISCO SYSTEMS est responsable du traitement. Vous pouvez demander l'accès, la rectification ou le retrait de vos données à tout moment.</p>
+    </div>
+
+    <div id="after" class="hide">
+      <div class="ok"><b>Merci.</b> Votre synthèse détaillée est affichée ci-dessus.</div>
+      <h2>Étape suivante</h2>
+      <p class="mut">Le Self Audit complet couvre 56 critères sur 8 piliers. Vos 18 réponses y sont déjà reprises sur les piliers Règles, Conservation et Habilitations.</p>
+      <a class="btn primary" id="auditLink" href="#">Passer au Self Audit complet, gratuit</a>
+    </div>
+  </section>
+</div>
+
+<script>
+// ── Configuration ───────────────────────────────────────────────────────────
+const CONFIG = {
+  AUDIT_URL: 'ARCHIVE_Self_Audit_v3.2.html',   // page du Self Audit complet
+  LEAD_ENDPOINT: 'https://formsubmit.co/ajax/yghilas@hotmail.com',  // reçoit les contacts par email (vide = aucun envoi)
+  // Envoi de la synthèse au visiteur (compte EmailJS à créer). Tant que ces 3 champs sont vides, aucun email n'est envoyé au visiteur.
+  EMAILJS: { PUBLIC_KEY: '', SERVICE_ID: '', TEMPLATE_ID: '' }
+};
+const MAIL_ON = () => !!(CONFIG.EMAILJS.PUBLIC_KEY && CONFIG.EMAILJS.SERVICE_ID && CONFIG.EMAILJS.TEMPLATE_ID);
+
+const PILLARS = [
+  {id:'R', label:'Règles & conformité',    hex:'#1848b0'},
+  {id:'C', label:'Conservation',           hex:'#b81c1c'},
+  {id:'H', label:'Habilitations & sécurité', hex:'#187840'}
+];
+const Q = [
+  {p:'R', t:"Avez-vous un tableau des durées légales de conservation pour tous vos types de documents ?", g:"Aucun tableau complet des durées légales de conservation"},
+  {p:'R', t:"Suivez-vous les évolutions des textes applicables (Loi 88-09, Loi 18-07, textes sectoriels) ?", g:"Pas de veille sur les évolutions réglementaires"},
+  {p:'R', t:"Tenez-vous à jour un registre des traitements de données personnelles ?", g:"Registre des traitements de données personnelles absent ou non à jour"},
+  {p:'R', t:"Savez-vous quels fonds doivent être versés aux Archives nationales ?", g:"Fonds à verser aux Archives nationales non identifiés"},
+  {p:'R', t:"Vos contrats avec les prestataires (archivage, hébergement, destruction) intègrent-ils les exigences légales ?", g:"Exigences légales absentes des contrats avec les prestataires"},
+  {p:'R', t:"Réalisez-vous un audit de conformité documentaire au moins une fois par an ?", g:"Pas d'audit de conformité documentaire annuel"},
+  {p:'C', t:"Les durées de conservation sont-elles appliquées dans vos outils et sur vos archives (échéances, étiquetage) ?", g:"Durées de conservation non appliquées dans les outils et sur les archives"},
+  {p:'C', t:"Vos équipes connaissent-elles et respectent-elles ces durées ?", g:"Durées de conservation peu connues ou peu respectées par les équipes"},
+  {p:'C', t:"Le support de conservation (papier, numérique, coffre-fort) est-il choisi selon la nature et la durée des documents ?", g:"Supports de conservation non adaptés à la nature et à la durée des documents"},
+  {p:'C', t:"Vos locaux d'archivage respectent-ils les conditions physiques requises (température, humidité, sécurité) ?", g:"Conditions physiques d'archivage non conformes"},
+  {p:'C', t:"Un calendrier de versement aux Archives nationales est-il planifié et appliqué ?", g:"Aucun calendrier de versement aux Archives nationales"},
+  {p:'C', t:"La destruction en fin de durée est-elle sécurisée et tracée (bordereau, certificat) ?", g:"Destruction non sécurisée ou non tracée en fin de durée"},
+  {p:'H', t:"Vos documents sont-ils classés par niveaux de confidentialité ?", g:"Pas de classification par niveaux de confidentialité"},
+  {p:'H', t:"Les droits d'accès sont-ils gérés par groupe ou par rôle plutôt que par personne ?", g:"Droits d'accès gérés par personne plutôt que par rôle"},
+  {p:'H', t:"Les accès d'un collaborateur qui part sont-ils supprimés le jour du départ ?", g:"Accès des collaborateurs partants non supprimés le jour du départ"},
+  {p:'H', t:"Les habilitations sont-elles revues au moins une fois par an ?", g:"Pas de revue annuelle des habilitations"},
+  {p:'H', t:"Les documents confidentiels sont-ils chiffrés, au stockage et pendant les transferts ?", g:"Documents confidentiels non chiffrés"},
+  {p:'H', t:"L'authentification à deux facteurs est-elle activée sur vos systèmes documentaires ?", g:"Authentification à deux facteurs absente sur les systèmes documentaires"}
+];
+const SC = {n:1, p:2, o:3};
+const LEVELS = [
+  {max:1.5, label:'Inexistant', col:'#dc2626', txt:"Les bases de la gouvernance documentaire ne sont pas encore posées. C'est le bon moment pour structurer."},
+  {max:2.5, label:'Initié',     col:'#e07000', txt:"Des pratiques existent, mais elles restent partielles et peu formalisées. Les écarts ci-dessous sont à traiter en priorité."},
+  {max:5.1, label:'Défini',     col:'#b89000', txt:"Les fondations sont posées. L'audit complet permettra de vérifier les preuves et de viser le niveau supérieur."}
+];
+const lvl = s => LEVELS.find(l => s < l.max);
+
+let cur = 0, ans = [], vig = [];
+const $ = id => document.getElementById(id);
+const show = id => { ['intro','quiz','result'].forEach(s => $(s).classList.toggle('hide', s !== id)); window.scrollTo(0,0); };
+
+function startQuiz(){ cur = 0; ans = []; show('quiz'); renderQ(); }
+function renderQ(){
+  const q = Q[cur], p = PILLARS.find(x => x.id === q.p);
+  $('qcount').textContent = `Question ${cur+1} sur ${Q.length}`;
+  $('qbar').style.width = (cur / Q.length * 100) + '%';
+  $('qtag').textContent = p.label; $('qtag').style.background = p.hex;
+  $('qtext').textContent = q.t;
+  $('backBtn').classList.toggle('hide', cur === 0);
+}
+function answer(a){
+  ans[cur] = a;
+  if (cur < Q.length - 1){ cur++; renderQ(); } else { showResult(); }
+}
+function goBack(){ if (cur > 0){ cur--; renderQ(); } }
+
+function pillarAvg(id){
+  const v = Q.map((q,i) => q.p === id ? SC[ans[i]] : null).filter(x => x);
+  return v.reduce((a,b) => a + b, 0) / v.length;
+}
+function showResult(){
+  show('result');
+  const g = ans.reduce((a,x) => a + SC[x], 0) / ans.length, L = lvl(g);
+  $('ring').setAttribute('stroke-dasharray', `${(g/5*232.5).toFixed(1)} 233`);
+  $('ring').setAttribute('stroke', L.col);
+  $('ringTxt').textContent = g.toFixed(1).replace('.', ',');
+  $('scoreTxt').textContent = `${g.toFixed(1).replace('.', ',')} sur 5`;
+  const pill = $('lvlPill'); pill.textContent = L.label; pill.style.background = L.col + '33'; pill.style.color = L.col;
+  $('lvlComment').textContent = L.txt;
+  $('pbars').innerHTML = PILLARS.map(p => {
+    const a = pillarAvg(p.id), c = lvl(a).col;
+    return `<div class="prow"><span>${p.label}</span><div class="track"><i style="width:${a/5*100}%;background:${c}"></i></div><span style="text-align:right">${a.toFixed(1).replace('.', ',')}</span></div>`;
+  }).join('');
+  vig = Q.map((q,i) => ({g:q.g, s:SC[ans[i]], i})).filter(x => x.s < 3).sort((a,b) => a.s - b.s || a.i - b.i);
+  if (!vig.length){
+    $('vigMain').innerHTML = `<div class="ok">Aucun point de vigilance détecté sur ces 18 questions.</div>`;
+    $('vigOthers').classList.add('hide');
+  } else {
+    $('vigMain').innerHTML = `<div class="vig"><b>Point de vigilance principal</b>${vig[0].g}</div>`;
+    if (vig.length > 1){
+      $('vigOthers').innerHTML = `<b style="font-size:14px">${vig.length - 1} autre${vig.length > 2 ? 's' : ''} point${vig.length > 2 ? 's' : ''} de vigilance détecté${vig.length > 2 ? 's' : ''}</b><div class="sk" style="width:88%"></div><div class="sk" style="width:70%"></div><div class="sk" style="width:79%"></div>`;
+    } else { $('vigOthers').classList.add('hide'); }
+  }
+}
+
+// ── Email de synthèse (HTML compatible Outlook, Hotmail, Gmail : tableaux et styles en ligne, sans image ni script) ──
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fr1 = n => n.toFixed(1).replace('.', ',');
+function buildSynthesisEmailHTML(d){
+  const F = 'font-family:Arial,Helvetica,sans-serif;';
+  const bars = d.pillars.map(p => {
+    const w = Math.min(99, Math.max(1, Math.round(p.avg / 5 * 100)));
+    return `<tr><td style="${F}padding:0 0 5px;font-size:13px;font-weight:bold;color:#1a1a18">${esc(p.label)}</td><td align="right" style="${F}padding:0 0 5px;font-size:13px;font-weight:bold;color:#1a1a18">${fr1(p.avg)} / 5</td></tr>
+<tr><td colspan="2" style="padding:0 0 16px"><table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td width="${w}%" height="12" bgcolor="${p.col}" style="background:${p.col};font-size:1px;line-height:12px">&nbsp;</td><td width="${100 - w}%" height="12" bgcolor="#e5e0d5" style="background:#e5e0d5;font-size:1px;line-height:12px">&nbsp;</td></tr></table></td></tr>`;
+  }).join('');
+  let vigHtml;
+  if (!d.vig.length){
+    vigHtml = `<table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td bgcolor="#e8f3ec" style="${F}background:#e8f3ec;padding:12px 14px;font-size:14px;color:#14532d">Aucun point de vigilance détecté sur ces 18 questions.</td></tr></table>`;
+  } else {
+    const others = d.vig.slice(1).map(t => `<li style="margin:0 0 6px">${esc(t)}</li>`).join('');
+    vigHtml = `<table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td bgcolor="#fdecec" style="${F}background:#fdecec;border-left:4px solid #dc2626;padding:12px 14px;font-size:14px;color:#7f1d1d"><b>Point de vigilance principal</b><br>${esc(d.vig[0])}</td></tr></table>`
+      + (others ? `<p style="${F}margin:16px 0 6px;font-size:14px;font-weight:bold;color:#1a1a18">Autres points de vigilance (${d.vig.length - 1})</p><ul style="${F}margin:0;padding-left:20px;font-size:14px;line-height:1.5;color:#1a1a18">${others}</ul>` : '');
+  }
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Votre synthèse ARCHIVE+</title></head>
+<body style="margin:0;padding:0;background:#f4f2ed">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="#f4f2ed"><tr><td align="center" style="padding:24px 12px">
+<table width="600" cellpadding="0" cellspacing="0" border="0" role="presentation" bgcolor="#ffffff" style="width:100%;max-width:600px;background:#ffffff">
+<tr><td bgcolor="#0c0c0a" style="${F}background:#0c0c0a;padding:20px 28px"><span style="font-size:20px;font-weight:bold;color:#e6b444">ARCHIVE+</span><span style="font-size:13px;color:#b8b2a6">&nbsp;&nbsp;Diagnostic Express</span></td></tr>
+<tr><td style="${F}padding:28px 28px 8px;color:#1a1a18">
+<p style="margin:0 0 6px;font-size:20px;font-weight:bold">Votre synthèse documentaire</p>
+<p style="margin:0 0 20px;font-size:14px;color:#5a5750">${esc(d.org)}</p>
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin:0 0 6px"><tr>
+<td style="${F}font-size:40px;font-weight:bold;color:#1a1a18;padding-right:10px">${fr1(d.g)}</td>
+<td style="${F}font-size:16px;color:#5a5750;padding-right:14px">sur 5</td>
+<td bgcolor="${d.L.col}" style="${F}background:${d.L.col};color:#ffffff;font-size:12px;font-weight:bold;padding:5px 14px">${esc(d.L.label)}</td></tr></table>
+<p style="margin:0 0 22px;font-size:14px;line-height:1.5;color:#3a3833">${esc(d.L.txt)}</p>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation">${bars}</table>
+<p style="margin:0 0 24px;font-size:12px;line-height:1.5;color:#7a766d">Le diagnostic rapide plafonne au niveau « Défini ». Les niveaux « Maîtrisé » et « Optimisé » se mesurent dans l'audit complet, avec preuves à l'appui.</p>
+${vigHtml}
+</td></tr>
+<tr><td align="center" style="${F}padding:24px 28px 30px">
+<p style="margin:0 0 14px;font-size:14px;color:#3a3833">Vos 18 réponses sont déjà reprises dans le Self Audit complet (56 critères, 8 piliers).</p>
+<table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td bgcolor="#c8901c" style="background:#c8901c"><a href="${esc(d.link)}" style="${F}display:inline-block;padding:13px 26px;font-size:15px;font-weight:bold;color:#1a1200;text-decoration:none">Poursuivre avec le Self Audit complet</a></td></tr></table>
+</td></tr>
+<tr><td bgcolor="#f4f2ed" style="${F}background:#f4f2ed;padding:16px 28px;font-size:11px;line-height:1.5;color:#7a766d">Vous recevez cet email car vous avez demandé votre synthèse sur le Diagnostic Express ARCHIVE+. GISCO SYSTEMS est responsable du traitement. Vous pouvez demander l'accès, la rectification ou le retrait de vos données à tout moment.</td></tr>
+</table></td></tr></table></body></html>`;
+}
+function sendSynthesisEmail(to, subject, html){
+  if (!MAIL_ON()) return;
+  const c = CONFIG.EMAILJS;
+  const go = () => emailjs.send(c.SERVICE_ID, c.TEMPLATE_ID, {to_email: to, subject: subject, html_body: html}, {publicKey: c.PUBLIC_KEY})
+    .catch(err => console.warn('Envoi de la synthèse impossible', err));
+  if (window.emailjs) return go();
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js';
+  s.onload = go; s.onerror = () => console.warn('SDK EmailJS indisponible');
+  document.head.appendChild(s);
+}
+
+function submitLead(){
+  const v = id => $(id).value.trim();
+  let ok = true;
+  const err = (id, m) => { $('e-' + id).textContent = m; if (m) ok = false; };
+  err('email', /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('f-email')) ? '' : 'Entrez une adresse email valide.');
+  err('org', v('f-org') ? '' : 'Entrez le nom de votre organisation.');
+  err('role', v('f-role') ? '' : 'Entrez votre fonction.');
+  err('c1', $('c1').checked ? '' : 'Cochez cette case pour voir votre synthèse.');
+  if (!ok) return;
+  const answers = {}; Q.forEach((q,i) => answers['Q' + (i+1)] = ans[i]);
+  const lead = {
+    date: new Date().toISOString(), email: v('f-email'), organisation: v('f-org'), fonction: v('f-role'),
+    secteur: v('f-sect'), taille: v('f-taille'), rappel: $('f-call').checked, telephone: $('f-call').checked ? v('f-tel') : '',
+    consentement_synthese: true, consentement_offres: $('c2').checked,
+    score_global: +(ans.reduce((a,x) => a + SC[x], 0) / ans.length).toFixed(2),
+    scores_piliers: Object.fromEntries(PILLARS.map(p => [p.id, +pillarAvg(p.id).toFixed(2)])),
+    reponses: answers
+  };
+  if (CONFIG.LEAD_ENDPOINT){
+    const oui = b => b ? 'oui' : 'non';
+    const payload = {
+      _subject: 'Diagnostic Express ARCHIVE+ : ' + lead.organisation,
+      _template: 'table', _captcha: 'false',
+      email: lead.email, organisation: lead.organisation, fonction: lead.fonction,
+      secteur: lead.secteur, taille: lead.taille,
+      rappel_souhaite: oui(lead.rappel), telephone: lead.telephone,
+      accepte_offres: oui(lead.consentement_offres),
+      score_global: lead.score_global,
+      score_R: lead.scores_piliers.R, score_C: lead.scores_piliers.C, score_H: lead.scores_piliers.H,
+      reponses: Object.entries(answers).map(([k,x]) => k + ':' + x).join(', '),
+      date: lead.date
+    };
+    fetch(CONFIG.LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(payload)})
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); })
+      .catch(err => console.warn('Envoi du contact impossible', err));
+  }
+  if (vig.length > 1){
+    $('vigOthers').innerHTML = `<b style="font-size:14px">Autres points de vigilance</b><ul>${vig.slice(1).map(x => `<li></li>`).join('')}</ul>`;
+    $('vigOthers').querySelectorAll('li').forEach((li, k) => li.textContent = vig[k + 1].g);
+  }
+  const rep = Q.map((q,i) => `Q${i+1}:${ans[i]}`).join(',');
+  const auditHref = `${CONFIG.AUDIT_URL}#express=${rep}&org=${encodeURIComponent(lead.organisation)}`;
+  $('auditLink').href = auditHref;
+  const gMean = ans.reduce((a,x) => a + SC[x], 0) / ans.length, gL = lvl(gMean);
+  sendSynthesisEmail(lead.email, `Votre synthèse ARCHIVE+ : ${fr1(gMean)} sur 5 (${gL.label})`, buildSynthesisEmailHTML({
+    org: lead.organisation, g: gMean, L: gL,
+    pillars: PILLARS.map(p => { const a = pillarAvg(p.id); return {label: p.label, avg: a, col: lvl(a).col}; }),
+    vig: vig.map(x => x.g), link: new URL(auditHref, location.href).href
+  }));
+  $('capture').classList.add('hide');
+  $('after').classList.remove('hide');
+  $('vigOthers').scrollIntoView({behavior:'smooth', block:'start'});
+}
+if (MAIL_ON()) $('mailNote').classList.remove('hide');
+['f-email','f-org','f-role'].forEach(id => $(id).addEventListener('input', () => $('e-' + id.slice(2)).textContent = ''));
+$('c1').addEventListener('change', () => $('e-c1').textContent = '');
+</script>
+</body>
 </html>
